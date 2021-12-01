@@ -16,7 +16,7 @@ RUN mvn clean install
 # Just using the build artifact and then removing the build-container
 FROM openjdk:17-jdk
 
-MAINTAINER Jonas Hecht
+MAINTAINER Saalks
 
 VOLUME /tmp
 

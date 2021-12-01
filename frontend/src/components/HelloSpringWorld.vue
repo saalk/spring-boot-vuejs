@@ -3,7 +3,7 @@
     <h1>{{ hellomsg }}</h1>
     <h2>See the sources here: </h2>
     <ul>
-      <li><a href="https://github.com/jonashackt/spring-boot-vuejs" target="_blank">github.com/jonashackt/spring-boot-vuejs</a></li>
+      <li><a href="https://github.com/saalks/spring-boot-vuejs" target="_blank">github.com/saalks/spring-boot-vuejs</a></li>
     </ul>
     <h3>This site contains more stuff :)</h3>
     <ul>

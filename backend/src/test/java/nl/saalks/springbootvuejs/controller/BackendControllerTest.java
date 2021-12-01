@@ -1,7 +1,7 @@
-package de.jonashackt.springbootvuejs.controller;
+package nl.saalks.springbootvuejs.controller;
 
-import de.jonashackt.springbootvuejs.SpringBootVuejsApplication;
-import de.jonashackt.springbootvuejs.domain.User;
+import nl.saalks.springbootvuejs.SpringBootVuejsApplication;
+import nl.saalks.springbootvuejs.domain.User;
 import io.restassured.RestAssured;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.BeforeEach;
@@ -42,12 +42,12 @@ public class BackendControllerTest {
 
 	@Test
     public void addNewUserAndRetrieveItBack() {
-        User norbertSiegmund = new User("Norbert", "Siegmund");
+        User lindaHuis = new User("Linda", "Huis");
 
         Long userId =
             given()
-                .pathParam("firstName", "Norbert")
-                .pathParam("lastName", "Siegmund")
+                .pathParam("firstName", "Linda")
+                .pathParam("lastName", "Huis")
             .when()
                 .post("/api/user/{lastName}/{firstName}")
             .then()
@@ -65,9 +65,9 @@ public class BackendControllerTest {
                     .assertThat()
                         .extract().as(User.class);
 
-	    // Did Norbert came back?
-        assertThat(responseUser.getFirstName(), is("Norbert"));
-        assertThat(responseUser.getLastName(), is("Siegmund"));
+	    // Did Linda came back?
+        assertThat(responseUser.getFirstName(), is("Linda"));
+        assertThat(responseUser.getLastName(), is("Huis"));
     }
 
 	@Test

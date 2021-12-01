@@ -1,8 +1,8 @@
-package de.jonashackt.springbootvuejs.controller;
+package nl.saalks.springbootvuejs.controller;
 
-import de.jonashackt.springbootvuejs.domain.User;
-import de.jonashackt.springbootvuejs.exception.UserNotFoundException;
-import de.jonashackt.springbootvuejs.repository.UserRepository;
+import nl.saalks.springbootvuejs.domain.User;
+import nl.saalks.springbootvuejs.exception.UserNotFoundException;
+import nl.saalks.springbootvuejs.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

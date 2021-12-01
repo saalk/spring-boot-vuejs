@@ -1,4 +1,4 @@
-package de.jonashackt.springbootvuejs.exception;
+package nl.saalks.springbootvuejs.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

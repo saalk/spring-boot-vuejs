@@ -1,6 +1,6 @@
-package de.jonashackt.springbootvuejs.configuration;
+package nl.saalks.springbootvuejs.configuration;
 
-import de.jonashackt.springbootvuejs.SpringBootVuejsApplication;
+import nl.saalks.springbootvuejs.SpringBootVuejsApplication;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;

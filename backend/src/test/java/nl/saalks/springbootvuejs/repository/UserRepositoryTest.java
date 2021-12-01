@@ -1,6 +1,6 @@
-package de.jonashackt.springbootvuejs.repository;
+package nl.saalks.springbootvuejs.repository;
 
-import de.jonashackt.springbootvuejs.domain.User;
+import nl.saalks.springbootvuejs.domain.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,31 +21,31 @@ public class UserRepositoryTest {
     @Autowired
     private UserRepository users;
 
-    private final User norbertSiegmund = new User("Norbert", "Siegmund");
-    private final User jonasHecht = new User("Jonas", "Hecht");
+    private final User lindaHuis = new User("linda", "Huis");
+    private final User saalksMeulen = new User("Saalks", "Meulen");
 
     @BeforeEach
     public void fillSomeDataIntoOurDb() {
         // Add new Users to Database
-        entityManager.persist(norbertSiegmund);
-        entityManager.persist(jonasHecht);
+        entityManager.persist(lindaHuis);
+        entityManager.persist(saalksMeulen);
     }
 
     @Test
     public void testFindByLastName() throws Exception {
         // Search for specific User in Database according to lastname
-        List<User> usersWithLastNameSiegmund = users.findByLastName("Siegmund");
+        List<User> usersWithLastNameHuis = users.findByLastName("Huis");
 
-        assertThat(usersWithLastNameSiegmund, contains(norbertSiegmund));
+        assertThat(usersWithLastNameHuis, contains(lindaHuis));
     }
 
 
     @Test
     public void testFindByFirstName() throws Exception {
         // Search for specific User in Database according to firstname
-        List<User> usersWithFirstNameJonas = users.findByFirstName("Jonas");
+        List<User> usersWithFirstNameSaalks = users.findByFirstName("Saalks");
 
-        assertThat(usersWithFirstNameJonas, contains(jonasHecht));
+        assertThat(usersWithFirstNameSaalks, contains(saalksMeulen));
     }
 
 }

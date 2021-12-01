@@ -25,6 +25,6 @@ module.exports = {
     const homepage = browser.page.homepage();
     const welcomeSection = homepage.section.app.section.welcome;
 
-    welcomeSection.expect.element('@cliPluginLinks').text.to.contain('github.com/jonashackt/spring-boot-vuejs')
+    welcomeSection.expect.element('@cliPluginLinks').text.to.contain('github.com/saalks/spring-boot-vuejs')
   }
 };
