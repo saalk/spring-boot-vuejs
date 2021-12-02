@@ -1,21 +1,21 @@
 # spring-boot-vuejs
 
-[![Build Status](https://github.com/saalks/spring-boot-vuejs/workflows/build/badge.svg)](https://github.com/saalks/spring-boot-vuejs/actions)
-[![codecov](https://codecov.io/gh/saalks/spring-boot-vuejs/branch/master/graph/badge.svg?token=gMQBTyKuKS)](https://codecov.io/gh/saalks/spring-boot-vuejs)
-[![License](http://img.shields.io/:license-mit-blue.svg)](https://github.com/saalks/spring-boot-vuejs/blob/master/LICENSE)
+[![Build Status](https://github.com/saalk/spring-boot-vuejs/workflows/build/badge.svg)](https://github.com/saalk/spring-boot-vuejs/actions)
+[![codecov](https://codecov.io/gh/saalk/spring-boot-vuejs/branch/master/graph/badge.svg?token=gMQBTyKuKS)](https://codecov.io/gh/saalk/spring-boot-vuejs)
+[![License](http://img.shields.io/:license-mit-blue.svg)](https://github.com/saalk/spring-boot-vuejs/blob/master/LICENSE)
 [![renovateenabled](https://img.shields.io/badge/renovate-enabled-yellow)](https://renovatebot.com)
-[![versionspringboot](https://img.shields.io/badge/dynamic/xml?color=brightgreen&url=https://raw.githubusercontent.com/saalks/spring-boot-vuejs/master/pom.xml&query=%2F%2A%5Blocal-name%28%29%3D%27project%27%5D%2F%2A%5Blocal-name%28%29%3D%27parent%27%5D%2F%2A%5Blocal-name%28%29%3D%27version%27%5D&label=springboot)](https://github.com/spring-projects/spring-boot)
+[![versionspringboot](https://img.shields.io/badge/dynamic/xml?color=brightgreen&url=https://raw.githubusercontent.com/saalk/spring-boot-vuejs/master/pom.xml&query=%2F%2A%5Blocal-name%28%29%3D%27project%27%5D%2F%2A%5Blocal-name%28%29%3D%27parent%27%5D%2F%2A%5Blocal-name%28%29%3D%27version%27%5D&label=springboot)](https://github.com/spring-projects/spring-boot)
 [![versionjava](https://img.shields.io/badge/jdk-8,_11,_15-brightgreen.svg?logo=java)](https://github.com/spring-projects/spring-boot)
-[![versionvuejs](https://img.shields.io/badge/dynamic/json?color=brightgreen&url=https://raw.githubusercontent.com/saalks/spring-boot-vuejs/master/frontend/package.json&query=$.dependencies.vue&label=vue&logo=vue.js)](https://vuejs.org/)
-[![versiontypescript](https://img.shields.io/badge/dynamic/json?color=blue&url=https://raw.githubusercontent.com/saalks/spring-boot-vuejs/master/frontend/package.json&query=$.devDependencies.typescript&label=typescript&logo=typescript)](https://www.typescriptlang.org/)
-[![versionbootstrap](https://img.shields.io/badge/dynamic/json?color=blueviolet&url=https://raw.githubusercontent.com/saalks/spring-boot-vuejs/master/frontend/package.json&query=$.dependencies.bootstrap&label=bootstrap&logo=bootstrap.js)](https://getbootstrap.com/)
-[![versionnodejs](https://img.shields.io/badge/dynamic/xml?color=brightgreen&url=https://raw.githubusercontent.com/saalks/spring-boot-vuejs/master/frontend/pom.xml&query=%2F%2A%5Blocal-name%28%29%3D%27project%27%5D%2F%2A%5Blocal-name%28%29%3D%27build%27%5D%2F%2A%5Blocal-name%28%29%3D%27plugins%27%5D%2F%2A%5Blocal-name%28%29%3D%27plugin%27%5D%2F%2A%5Blocal-name%28%29%3D%27executions%27%5D%2F%2A%5Blocal-name%28%29%3D%27execution%27%5D%2F%2A%5Blocal-name%28%29%3D%27configuration%27%5D%2F%2A%5Blocal-name%28%29%3D%27nodeVersion%27%5D&label=nodejs&logo=node.js)](https://nodejs.org/en/)
-[![versionwebpack](https://img.shields.io/badge/dynamic/json?color=brightgreen&url=https://raw.githubusercontent.com/saalks/spring-boot-vuejs/master/frontend/package-lock.json&query=$.dependencies.webpack.version&label=webpack&logo=webpack)](https://webpack.js.org/)
-[![versionaxios](https://img.shields.io/badge/dynamic/json?color=brightgreen&url=https://raw.githubusercontent.com/saalks/spring-boot-vuejs/master/frontend/package.json&query=$.dependencies.axios&label=axios)](https://github.com/axios/axios)
-[![versionjest](https://img.shields.io/badge/dynamic/json?color=brightgreen&url=https://raw.githubusercontent.com/saalks/spring-boot-vuejs/master/frontend/package-lock.json&query=$.dependencies.jest.version&label=jest&logo=jest)](https://jestjs.io/)
-[![versionnightwatch](https://img.shields.io/badge/dynamic/json?color=brightgreen&url=https://raw.githubusercontent.com/saalks/spring-boot-vuejs/master/frontend/package-lock.json&query=$.dependencies.nightwatch.version&label=nightwatch)](http://nightwatchjs.org/)
+[![versionvuejs](https://img.shields.io/badge/dynamic/json?color=brightgreen&url=https://raw.githubusercontent.com/saalk/spring-boot-vuejs/master/frontend/package.json&query=$.dependencies.vue&label=vue&logo=vue.js)](https://vuejs.org/)
+[![versiontypescript](https://img.shields.io/badge/dynamic/json?color=blue&url=https://raw.githubusercontent.com/saalk/spring-boot-vuejs/master/frontend/package.json&query=$.devDependencies.typescript&label=typescript&logo=typescript)](https://www.typescriptlang.org/)
+[![versionbootstrap](https://img.shields.io/badge/dynamic/json?color=blueviolet&url=https://raw.githubusercontent.com/saalk/spring-boot-vuejs/master/frontend/package.json&query=$.dependencies.bootstrap&label=bootstrap&logo=bootstrap.js)](https://getbootstrap.com/)
+[![versionnodejs](https://img.shields.io/badge/dynamic/xml?color=brightgreen&url=https://raw.githubusercontent.com/saalk/spring-boot-vuejs/master/frontend/pom.xml&query=%2F%2A%5Blocal-name%28%29%3D%27project%27%5D%2F%2A%5Blocal-name%28%29%3D%27build%27%5D%2F%2A%5Blocal-name%28%29%3D%27plugins%27%5D%2F%2A%5Blocal-name%28%29%3D%27plugin%27%5D%2F%2A%5Blocal-name%28%29%3D%27executions%27%5D%2F%2A%5Blocal-name%28%29%3D%27execution%27%5D%2F%2A%5Blocal-name%28%29%3D%27configuration%27%5D%2F%2A%5Blocal-name%28%29%3D%27nodeVersion%27%5D&label=nodejs&logo=node.js)](https://nodejs.org/en/)
+[![versionwebpack](https://img.shields.io/badge/dynamic/json?color=brightgreen&url=https://raw.githubusercontent.com/saalk/spring-boot-vuejs/master/frontend/package-lock.json&query=$.dependencies.webpack.version&label=webpack&logo=webpack)](https://webpack.js.org/)
+[![versionaxios](https://img.shields.io/badge/dynamic/json?color=brightgreen&url=https://raw.githubusercontent.com/saalk/spring-boot-vuejs/master/frontend/package.json&query=$.dependencies.axios&label=axios)](https://github.com/axios/axios)
+[![versionjest](https://img.shields.io/badge/dynamic/json?color=brightgreen&url=https://raw.githubusercontent.com/saalk/spring-boot-vuejs/master/frontend/package-lock.json&query=$.dependencies.jest.version&label=jest&logo=jest)](https://jestjs.io/)
+[![versionnightwatch](https://img.shields.io/badge/dynamic/json?color=brightgreen&url=https://raw.githubusercontent.com/saalk/spring-boot-vuejs/master/frontend/package-lock.json&query=$.dependencies.nightwatch.version&label=nightwatch)](http://nightwatchjs.org/)
 [![Deployed on Heroku](https://img.shields.io/badge/heroku-deployed-blueviolet.svg?logo=heroku)](https://spring-boot-vuejs.herokuapp.com/)
-[![Pushed to Docker Hub](https://img.shields.io/badge/docker_hub-released-blue.svg?logo=docker)](https://hub.docker.com/r/saalks/spring-boot-vuejs)
+[![Pushed to Docker Hub](https://img.shields.io/badge/docker_hub-released-blue.svg?logo=docker)](https://hub.docker.com/r/saalk/spring-boot-vuejs)
 
 A live deployment is available on Heroku: https://spring-boot-vuejs.herokuapp.com
 This project is used as example in a variety of articles & as eBook:
@@ -416,7 +416,9 @@ But if the user enters the URL directly into the Browser, we get a `Whitelabel E
 The solution is to redirect or better forward the user to the frontend (router) again. 
 The [Vue.js docs don't provide an example configuration for Spring Boot](https://router.vuejs.
 org/guide/essentials/history-mode.html#example-server-configurations), 
-but luckily [there are other resources](https://www.baeldung.com/spring-redirect-and-forward). In essence we have to implement a forwarding controller in our [BackendController](backend/src/main/java/de/saalks/springbootvuejs/controller/BackendController.java):
+but luckily [there are other resources](https://www.baeldung.com/spring-redirect-and-forward). 
+In essence we have to implement a forwarding controller in our [BackendController]
+(backend/src/main/java/nl/saalks/springbootvuejs/controller/BackendController.java):
 
 ```
     // Forwards all routes to FrontEnd except: '/', '/index.html', '/api', '/api/**'
@@ -468,7 +470,7 @@ Frontend needs to know the Port of our Spring Boot backend API, which is [automa
 > You can [try out your Heroku app locally](https://devcenter.heroku.com/articles/heroku-local)! Just create a .env-File with all your Environment variables and run `heroku local`! 
 
 To access the Heroku set port, we need to use relative paths inside our Vue.js application instead of hard-coded hosts and ports! 
-All we need to do is to configure Axios in such a way inside our [frontend/src/components/http-common.js](https://github.com/saalks/spring-boot-vuejs/blob/master/frontend/src/components/http-common.js):
+All we need to do is to configure Axios in such a way inside our [frontend/src/components/http-common.js](https://github.com/saalk/spring-boot-vuejs/blob/master/frontend/src/components/http-common.js):
 
 ```
 export const AXIOS = axios.create({
@@ -482,7 +484,8 @@ First, add [Heroku Postgres database](https://elements.heroku.com/addons/heroku-
 Then follow these instructions on Stackoverflow to configure all needed Environment variables in Heroku: https://stackoverflow.com/a/49978310/4964553
 Mind the addition to the backend's [pom.xml](backend/pom.xml) described here: https://stackoverflow.com/a/49970142/4964553
 
-Now you're able to use Spring Data's magic - all you need is an Interface like [UserRepository.java](backend/src/main/java/de/saalks/springbootvuejs/repository/UserRepository.java):
+Now you're able to use Spring Data's magic - all you need is an Interface like [UserRepository.
+java](backend/src/main/java/nl/saalks/springbootvuejs/repository/UserRepository.java):
 ```java
 package nl.saalks.springbootvuejs.repository;
 
@@ -560,7 +563,8 @@ public class UserRepositoryTest {
 }
 ```
 
-Then include this functionality in your REST-API - see [BackendController.java](backend/src/main/java/de/saalks/springbootvuejs/controller/BackendController.java):
+Then include this functionality in your REST-API - see [BackendController.java]
+(backend/src/main/java/nl/saalks/springbootvuejs/controller/BackendController.java):
 ```java
     @RequestMapping(path = "/user", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)

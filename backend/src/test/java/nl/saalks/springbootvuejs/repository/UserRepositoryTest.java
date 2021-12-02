@@ -39,7 +39,6 @@ public class UserRepositoryTest {
         assertThat(usersWithLastNameHuis, contains(lindaHuis));
     }
 
-
     @Test
     public void testFindByFirstName() throws Exception {
         // Search for specific User in Database according to firstname
