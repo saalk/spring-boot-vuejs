@@ -28,6 +28,24 @@ class Day1Test implements AdventOfCodeTest {
     }
 
     @Test
+    @DisplayName("1.1 - 1226 times increased for file")
+    void sonarSweepStreamWithInputFile() {
+
+        List<String> lines = readFile("input-sonar-sweep.txt");
+        int increases = fixture.sonarSweepStream(lines);
+        assertTrue("increases in report should be 1226", increases == 1226);
+    }
+
+    @Test
+    @DisplayName("1.1 - 1226 times increased for file")
+    void sonarSweepSimpleWithInputFile() {
+
+        List<String> lines = readFile("input-sonar-sweep.txt");
+        int increases = fixture.sonarSweepSimple(lines);
+        assertTrue("increases in report should be 1226", increases == 1226);
+    }
+
+    @Test
     @DisplayName("1.2 - 1252 times increased for file")
     void threeMeasurementSlidingWindowWithInputFile() {
 

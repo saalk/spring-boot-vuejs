@@ -5,6 +5,7 @@ import lombok.Data;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -72,12 +73,11 @@ public class Day2 implements AdventOfCode {
 
     public int aimTheSub(List<String> plannedCourse) {
 
-        LOG.info("pilotTheSub - total lines: " + plannedCourse.size());
+        LOG.info("aimTheSub - total lines: " + plannedCourse.size());
 
         int horizontalPosition = 0;
         int depth = 0;
         int aim = 0;
-
 
         // for-each loop the file lines
         for (String step : plannedCourse) {
@@ -94,29 +94,71 @@ public class Day2 implements AdventOfCode {
                 case "forward":
                     horizontalPosition = horizontalPosition+count;
                     depth = depth + (aim * count);
-                    LOG.info("pilotTheSub - " + split + " gives horizon: " + horizontalPosition);
-                    LOG.info("pilotTheSub - " + split + " gives depth: " + depth);
+                    LOG.info("aimTheSub - " + split + " gives horizon: " + horizontalPosition);
+                    LOG.info("aimTheSub - " + split + " gives depth: " + depth);
                     break;
                 case "down":
                     aim = aim+count;
-                    LOG.info("pilotTheSub - " + split + " gives : " + aim);
+                    LOG.info("aimTheSub - " + split + " gives : " + aim);
                     break;
                 case "up":
                     aim = aim-count;
-                    LOG.info("pilotTheSub - " + split + " gives : " + aim);
+                    LOG.info("aimTheSub - " + split + " gives : " + aim);
 
                     break;
                 default:
-                    LOG.info("pilotTheSub - " + split + " gives : ?");
+                    LOG.info("aimTheSub - " + split + " gives : ?");
             }
         }
 
-        LOG.info("pilotTheSub - horizontalPosition: " + horizontalPosition);
-        LOG.info("pilotTheSub - depth: " + depth);
-        LOG.info("pilotTheSub - horizontalPosition * depth: " + horizontalPosition*depth);
+        LOG.info("aimTheSub - horizontalPosition: " + horizontalPosition);
+        LOG.info("aimTheSub - depth: " + depth);
+        LOG.info("aimTheSub - horizontalPosition * depth: " + horizontalPosition*depth);
 
 
         return horizontalPosition*depth;
+    }
+
+    public int aimTheSubHashMap(List<String> plannedCourse) {
+
+        LOG.info("aimTheSubHashMap - total lines: " + plannedCourse.size());
+
+        HashMap<String, Integer> map = new HashMap();
+        map.put("depth", 0);
+        map.put("forward", 0);
+        map.put("aim", 0);
+
+        // for-each loop the file lines
+        for (String line : plannedCourse) {
+
+            String[] split = line.split(" ");
+
+            if(split[0].equals("down")){
+                map.put("aim",
+                        (map.get("aim") + Integer.parseInt(split[1]))
+                );
+            } else if (split[0].equals("up")){
+                map.put("aim",
+                        (map.get("aim") - Integer.parseInt(split[1]))
+                );
+            } else if (split[0].equals("forward")){
+                map.put("forward",
+                        (map.get("forward") + Integer.parseInt(split[1]))
+                );
+                map.put("depth",
+                        (map.get("depth") +
+                                (map.get("aim") * Integer.parseInt(split[1]))
+                        )
+                );
+            }
+        }
+
+        LOG.info("aimTheSubHashMap - horizontalPosition: " + map.get("forward"));
+        LOG.info("aimTheSubHashMap - depth: " + map.get("depth"));
+        LOG.info("aimTheSubHashMap - horizontalPosition * depth: " + map.get("forward")*map.get("depth"));
+
+
+        return map.get("forward")*map.get("depth");
     }
 
 }

@@ -5,20 +5,41 @@ import lombok.Data;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static nl.saalks.springbootvuejs.service.AdventOfCode.*;
+import static nl.saalks.springbootvuejs.service.AdventOfCode.convertStringListToIntList;
 
 @Service
 public class Day1 implements AdventOfCode {
 
-    @AllArgsConstructor
-    @Data
-    static class SlidingWindow {
-        private int mark;
-        private int sum;
+    /**
+     * Returns the times depth increases for a given depth report.
+     *
+     * @param lines the int array
+     * @return the times a depth increases
+     */
+    public int sonarSweepSimple(List<String> lines) {
+
+        LOG.info("sonarSweepSimple - total lines: " + lines.size());
+        int count, timesIncreased = 0;
+
+        for (int i = 1; i < lines.size(); i++) {
+            if (Integer.parseInt(lines.get(i)) > Integer.parseInt(lines.get(i - 1))) {
+                timesIncreased++;
+            }
+        }
+
+        LOG.info("sonarSweepSimple - increased: " + timesIncreased);
+
+        return timesIncreased;
     }
 
     /**
      * Returns the times depth increases for a given depth report.
+     *
      * @param depthReport the int array
      * @return the times a depth increases
      */
@@ -53,8 +74,23 @@ public class Day1 implements AdventOfCode {
         return timesIncreased;
     }
 
+    public int sonarSweepStream(List<String> depthReport) {
+
+        LOG.info("sonarSweepStream - total lines: " + depthReport.size());
+
+        List<Integer> intDepthReport = convertStringListToIntList(depthReport, Integer::parseInt);
+
+        int timesIncreased = computeSlidingWindow(intDepthReport, 1);  //Part 1
+//        int valuePart2 = compute(intDepthReport, 3); //Part 2
+
+        LOG.info("sonarSweepStream - increased: " + timesIncreased);
+
+        return timesIncreased;
+    }
+
     /**
      * Returns the 3 sliding window depth increases for a given depth report.
+     *
      * @param depthReport the int array
      * @return the times a slidingWindow increases
      */
@@ -155,6 +191,13 @@ public class Day1 implements AdventOfCode {
         LOG.info("threeMeasurementSlidingWindow - skipped: " + timesSkipped);
 
         return timesIncreased;
+    }
+
+    @AllArgsConstructor
+    @Data
+    static class SlidingWindow {
+        private int mark;
+        private int sum;
     }
 
 }

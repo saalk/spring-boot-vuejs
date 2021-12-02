@@ -68,4 +68,13 @@ class Day2Test implements AdventOfCodeTest {
         int plannedCourse = fixture.aimTheSub(lines);
         assertTrue("planned course in report should be: ", plannedCourse == 2089174012);
     }
+
+    @Test
+    @DisplayName("2.2 - 2089174012 plannedCourse for file")
+    void aimTheSubHashMapWithInputFile() {
+
+        List<String> lines = readFile("input-planned-course.txt");
+        int plannedCourse = fixture.aimTheSubHashMap(lines);
+        assertTrue("planned course in report should be: ", plannedCourse == 2089174012);
+    }
 }

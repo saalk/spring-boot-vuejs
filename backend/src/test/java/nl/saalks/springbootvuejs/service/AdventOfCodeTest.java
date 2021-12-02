@@ -1,11 +1,18 @@
 package nl.saalks.springbootvuejs.service;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.function.Function;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.toMap;
 
 
 interface AdventOfCodeTest {
@@ -36,4 +43,5 @@ interface AdventOfCodeTest {
         }
         return lines;
     }
+
 }
