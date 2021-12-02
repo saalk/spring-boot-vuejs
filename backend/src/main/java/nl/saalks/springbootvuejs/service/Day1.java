@@ -8,12 +8,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class Puzzles2021 implements AdventOfCode {
+public class Day1 implements AdventOfCode {
+
+    @AllArgsConstructor
+    @Data
+    static class SlidingWindow {
+        private int mark;
+        private int sum;
+    }
 
     /**
      * Returns the times depth increases for a given depth report.
-     * Puzzle from <a href="sonarSweep"">https://adventofcode.com/2021/day/1"></a>
-     *
      * @param depthReport the int array
      * @return the times a depth increases
      */
@@ -50,8 +55,6 @@ public class Puzzles2021 implements AdventOfCode {
 
     /**
      * Returns the 3 sliding window depth increases for a given depth report.
-     * Puzzle from <a href="sonarSweep"">https://adventofcode.com/2021/day/1"></a>
-     *
      * @param depthReport the int array
      * @return the times a slidingWindow increases
      */
@@ -68,7 +71,7 @@ public class Puzzles2021 implements AdventOfCode {
         int olderWindowDepth = 0;
         int oldWindowDepth = 0;
 
-        // for-each loop the file lines
+        // for-each - loop the file lines create sliding windows
         for (String stringDepth : depthReport) {
             int depth = Integer.parseInt(stringDepth);
             currentWindowKey++;
@@ -127,7 +130,7 @@ public class Puzzles2021 implements AdventOfCode {
         int timesSkipped = 0;
         int timesNoChange = 0;
 
-        // for-each loop the windows
+        // for-each - loop the sliding windows
         for (SlidingWindow slidingWindow : slidingWindows) {
 
             int sum = slidingWindow.getSum();
@@ -152,13 +155,6 @@ public class Puzzles2021 implements AdventOfCode {
         LOG.info("threeMeasurementSlidingWindow - skipped: " + timesSkipped);
 
         return timesIncreased;
-    }
-
-    @AllArgsConstructor
-    @Data
-    static class SlidingWindow {
-        private int mark;
-        private int sum;
     }
 
 }
