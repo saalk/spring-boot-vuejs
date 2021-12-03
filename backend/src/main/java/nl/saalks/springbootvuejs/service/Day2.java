@@ -13,13 +13,6 @@ import java.util.stream.Collectors;
 @Service
 public class Day2 implements AdventOfCode {
 
-    @AllArgsConstructor
-    @Data
-    static class SlidingWindow {
-        private int mark;
-        private int sum;
-    }
-
     /**
      * Calculate the horizontal position and depth.
      * @param plannedCourse the lines eg "forward 5"
