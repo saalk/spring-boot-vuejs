@@ -24,7 +24,7 @@ class Day3Test implements AdventOfCodeTest {
     }
 
     @Test
-    @DisplayName("3.1 - 198 powerConsumption for file")
+    @DisplayName("3.1 - 198 powerConsumption for example")
     void binaryDiagnosticWithExampleInput() {
 
         List<String> lines = new ArrayList<>();
@@ -41,17 +41,17 @@ class Day3Test implements AdventOfCodeTest {
         lines.add("00010");
         lines.add("01010");
 
-        int powerConsumption = fixture.binaryDiagnostic(lines);
+        int powerConsumption = fixture.binaryDiagnostic(lines, lines.get(0).length());
         assertTrue("powerConsumption in report should be: ", powerConsumption == 198);
     }
 
     @Test
-    @DisplayName("3.1 - ? powerConsumption for file")
+    @DisplayName("3.1 - 2250414 powerConsumption for file")
     void binaryDiagnosticWithInputFile() {
 
-        List<String> lines = readFile("input-planned-course.txt");
-        int powerConsumption = fixture.binaryDiagnostic(lines);
-        assertTrue("powerConsumption in report should be: ", powerConsumption == 2089174012);
+        List<String> lines = readFile("input-binary-diagnostic.txt");
+        int powerConsumption = fixture.binaryDiagnostic(lines, lines.get(0).length());
+        assertTrue("powerConsumption in report should be: ", powerConsumption == 2250414);
     }
 
 }

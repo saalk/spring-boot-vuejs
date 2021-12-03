@@ -20,7 +20,7 @@ class Day2Test implements AdventOfCodeTest {
     }
 
     @Test
-    @DisplayName("2.1 - 1989265 plannedCourse for file")
+    @DisplayName("2.1 - 1989265 plannedCourse for example")
     void pilotTheSubWithExampleData() {
 
         List<String> lines = new ArrayList<>();
