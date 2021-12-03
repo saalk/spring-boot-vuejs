@@ -7,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.util.AssertionErrors.assertTrue;
 
 class Day3Test implements AdventOfCodeTest {
@@ -41,7 +40,7 @@ class Day3Test implements AdventOfCodeTest {
         lines.add("00010");
         lines.add("01010");
 
-        int powerConsumption = fixture.binaryDiagnostic(lines, lines.get(0).length());
+        int powerConsumption = fixture.powerConsumption(lines, lines.get(0).length());
         assertTrue("powerConsumption in report should be: ", powerConsumption == 198);
     }
 
@@ -50,7 +49,7 @@ class Day3Test implements AdventOfCodeTest {
     void binaryDiagnosticWithInputFile() {
 
         List<String> lines = readFile("input-binary-diagnostic.txt");
-        int powerConsumption = fixture.binaryDiagnostic(lines, lines.get(0).length());
+        int powerConsumption = fixture.powerConsumption(lines, lines.get(0).length());
         assertTrue("powerConsumption in report should be: ", powerConsumption == 2250414);
     }
 
