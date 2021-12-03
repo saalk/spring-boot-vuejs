@@ -46,15 +46,18 @@ public interface AdventOfCode {
     static int computeSlidingWindow(List<Integer> depthReport, int windowSize) {
 
         int increases = 0;
+
+        // The subList() returns a view of the portion of this list using from-until
+        // Sublist magic, take 1,2,3 and sum them in item AND previous
         int item, previous = depthReport
                 .subList(0, windowSize)
                 .stream()
                 .reduce(0, Integer::sum);
 
-        for (int i = 1;                              // initialization
-             i <= depthReport.size() - windowSize;   // condition
-             i++, previous = item )                  // multi incr/decr
-        {
+        for (int i = 1; i <= depthReport.size() - windowSize; i++, previous = item ) {
+            // multi incr/decr conditions: also make previous same as item
+
+            // sublist magic, take 1,2,3 or 2,3,4 etc and sum them in item
             item = depthReport
                     .subList(i, i + windowSize)
                     .stream()
