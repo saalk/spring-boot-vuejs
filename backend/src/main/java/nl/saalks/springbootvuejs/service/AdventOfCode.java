@@ -4,8 +4,7 @@ import nl.saalks.springbootvuejs.controller.BackendController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -71,5 +70,25 @@ public interface AdventOfCode {
             }
         }
         return increases;
+    }
+
+    default HashMap<Integer, String> convertArrayListToHashMap(ArrayList<String> arrayList) {
+        HashMap<Integer, String> hashMap = new LinkedHashMap<>();
+        int counter = 0;
+        for (String str : arrayList) {
+            counter++;
+            hashMap.put(counter, str);
+        }
+        return hashMap;
+    }
+
+    default ArrayList<String> convertHashMapToArrayListTo(HashMap<Integer, String> hashMap) {
+        ArrayList<String> arrayList = new ArrayList<>();
+        SKIP:
+        for (int i=0; i < hashMap.size(); i++) {
+            if (hashMap.get(i) == "") continue SKIP;
+            arrayList.add(hashMap.get(i));
+        }
+        return arrayList;
     }
 }

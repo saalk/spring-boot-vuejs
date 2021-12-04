@@ -19,10 +19,6 @@ class Day3Test implements AdventOfCodeTest {
     }
 
     @Test
-    void binaryDiagnostic() {
-    }
-
-    @Test
     @DisplayName("3.1 - 198 powerConsumption for example")
     void binaryDiagnosticWithExampleInput() {
 
@@ -52,5 +48,28 @@ class Day3Test implements AdventOfCodeTest {
         int powerConsumption = fixture.powerConsumption(lines, lines.get(0).length());
         assertTrue("powerConsumption in report should be: ", powerConsumption == 2250414);
     }
+
+    @Test
+    @DisplayName("3.2 - 230 lifeSupportRating for example")
+    void lifeSupportRatingWithExampleInput() {
+
+        ArrayList<String> lines = new ArrayList<>();
+        lines.add("00100"); //1  d
+        lines.add("11110"); //2  .d
+        lines.add("10110"); //3
+        lines.add("10111"); //4      d
+        lines.add("10101"); //5     d
+        lines.add("01111"); //6  d
+        lines.add("00111"); //7  d
+        lines.add("11100"); //8  .d
+        lines.add("10000"); //9    d
+        lines.add("11001"); //10  d
+        lines.add("00010"); //11 d
+        lines.add("01010"); //12 d
+
+        int powerConsumption = fixture.lifeSupportRating(lines);
+        assertTrue("lifeSupportRating in report should be: ", powerConsumption == 230);
+    }
+
 
 }
