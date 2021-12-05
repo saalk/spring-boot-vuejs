@@ -43,8 +43,9 @@ class Day4Test implements AdventOfCodeTest {
         lines.add("22 11 13  6  5");
         lines.add(" 2  0 12  3  7");
 
-        int finalScore = fixture.bingo(lines);
-        assertTrue("finalScore in report should be: ", finalScore == 4512);
+        int finalScores[] = fixture.bingo(lines);
+        assertTrue("finalScoreFirst in report should be: ", finalScores[0] == 4512);
+//        assertTrue("finalScoreLast in report should be: ", finalScores[1] == 51776);
     }
 
     @Test
@@ -52,8 +53,9 @@ class Day4Test implements AdventOfCodeTest {
     void bingoWithInputFile() {
 
         ArrayList<String> lines = readFile("input-bingo.txt");
-        int finalScore = fixture.bingo(lines);
-        assertTrue("finalScore in report should be: ", finalScore == 51776);
+        int[] finalScores = fixture.bingo(lines);
+        assertTrue("finalScoreFirst in report should be: ", finalScores[0] == 51776);
+//        assertTrue("finalScoreLast in report should be: ", finalScores[1] == 51776);
     }
 
 }
