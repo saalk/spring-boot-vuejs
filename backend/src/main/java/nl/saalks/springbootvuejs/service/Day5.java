@@ -4,9 +4,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+
+import static java.lang.Math.abs;
 
 @Service
 public class Day5 implements AdventOfCode {
@@ -19,11 +21,11 @@ public class Day5 implements AdventOfCode {
         // fill both inner classes
         for (int line = 1; line < inputLines.size(); line++) {
             lineSegments.add(new LineSegment(line, inputLines.get(line-1)));
-            LOG.info("bingo - lineSegments: " + lineSegments.get(line-1));
+            LOG.info("overlap - lineSegments: " + lineSegments.get(line-1));
         }
 
         int totalNumbers = lineSegments.size();
-        LOG.info("bingo - total lineSegments: " + totalNumbers);
+        LOG.info("overlap - total lineSegments: " + totalNumbers);
 
         // make diagram
         for (int i = 0; i < totalNumbers; i++) {
@@ -33,7 +35,7 @@ public class Day5 implements AdventOfCode {
         }
 
         int finalScoreFirst = 0;
-        LOG.info("bingo - diagramLines finalScoreFirst: " + finalScoreFirst);
+        LOG.info("overlap - diagramLines finalScoreFirst: " + finalScoreFirst);
         return finalScoreFirst;
     }
 
@@ -60,15 +62,6 @@ public class Day5 implements AdventOfCode {
             this.score = 0;
             this.winningCard = false;
 
-            for (int row = 0; row < 5; row++) {
-                String[] splitArray = fiveByFive.get(row).split(" +");
-                int[] array = new int[splitArray.length];
-                for (int column = 0; column < 5; column++) {
-                    array[column] = Integer.parseInt(splitArray[column]);
-                    number[row][column] = array[column];
-                    isMarked[row][column] = false;
-                }
-            }
         }
 
         // overriding the compareTo method of Comparable class
@@ -93,11 +86,13 @@ public class Day5 implements AdventOfCode {
     @Data
     class LineSegment {
         private int order;
+        private int startPoint;
+        private int endPoint;
         private int startX;
         private int startY;
         private int endX;
         private int endY;
-        private double[][] points;
+        private int[] points;
 
         public LineSegment(int order, String entry) {
             this.order = order;
@@ -108,22 +103,36 @@ public class Day5 implements AdventOfCode {
         void deriveXandY(String entry) {
 
             String[] points = entry.split("\\s*->\\s*");
+            this.startPoint = Integer.parseInt(points[0].replaceAll(",",""));
+            this.endPoint = Integer.parseInt(points[1].replaceAll(",",""));
+
             String[] startPoint = points[0].split("\\s*,\\s*");
             String[] endPoint = points[1].split("\\s*,\\s*");
-
             this.startX = Integer.parseInt(startPoint[0]);
             this.startY = Integer.parseInt(startPoint[1]);
-
             this.endX = Integer.parseInt(endPoint[0]);
             this.endY = Integer.parseInt(endPoint[1]);
 
         }
 
         void calculatePoints() {
-            this.points = new double[endX][endY];
-            for (int x = startX; x <= endX; x++) {
-                for (int y = startY; y <= endY; y++) {
-                    points[x][y] = 1;
+
+            int totalPoints = (endPoint - startPoint);
+            this.points = new int[totalPoints];
+
+            if (startPoint < endPoint) {
+                // up
+                int count = 0;
+                for (int p = startPoint; p <= endPoint; p++) {
+                    points[count] = p;
+                    LOG.info("overlap - calculatePoints up: " + p);
+                }
+            } else {
+                // down
+                int count = 0;
+                for (int p = endPoint; p >= startPoint; p--) {
+                    points[count] = p;
+                    LOG.info("overlap - calculatePoints down: " + p);
                 }
             }
         }
