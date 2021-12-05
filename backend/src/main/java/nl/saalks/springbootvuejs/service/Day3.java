@@ -55,11 +55,11 @@ public class Day3 implements AdventOfCode {
 
         if (mostOrLeast == MostOrLeast.MOST) {
             mostCommonBits.add(commonBitToUpdate);
-            LOG.info("calculateMostOrLeastCommon - mostCommonBits: " + mostCommonBits);
+            LOG.info("calculateMostOrLeastCommon - mostNumbersDrawns: " + mostCommonBits);
 
         } else {
             leastCommonBits.add(commonBitToUpdate);
-            LOG.info("calculateMostOrLeastCommon - leastCommonBits: " + leastCommonBits);
+            LOG.info("calculateMostOrLeastCommon - leastNumbersDrawns: " + leastCommonBits);
         }
         LOG.info("calculateMostOrLeastCommon - end method: " + (position+1) + " - " + mostOrLeast );
 
