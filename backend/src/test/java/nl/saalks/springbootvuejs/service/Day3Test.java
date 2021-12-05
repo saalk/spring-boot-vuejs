@@ -71,5 +71,14 @@ class Day3Test implements AdventOfCodeTest {
         assertTrue("lifeSupportRating in report should be: ", powerConsumption == 230);
     }
 
+    @Test
+    @DisplayName("3.2 - 6085575 lifeSupportRating for file")
+    void lifeSupportRatingWithInputFile() {
+
+        ArrayList<String> lines = readFile("input-binary-diagnostic.txt");
+        int powerConsumption = fixture.lifeSupportRating(lines);
+        assertTrue("lifeSupportRating in report should be: ", powerConsumption == 6085575);
+    }
+
 
 }

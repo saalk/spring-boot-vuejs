@@ -1,15 +1,9 @@
 package nl.saalks.springbootvuejs.service;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.*;
-import java.util.function.Function;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toMap;
@@ -17,7 +11,7 @@ import static java.util.stream.Collectors.toMap;
 
 interface AdventOfCodeTest {
 
-    default List<String> readFile(String resourceName) {
+    default ArrayList<String> readFile(String resourceName) {
 
         ClassLoader classLoader = getClass().getClassLoader();
         File file = new File(classLoader.getResource(resourceName).getFile());
@@ -33,7 +27,7 @@ interface AdventOfCodeTest {
             System.out.println("File Size in bytes: " + file.length());
         }
 
-        List<String> lines = new ArrayList<>();
+        ArrayList<String> lines = new ArrayList<>();
         try (Stream linesStream = Files.lines(file.toPath())) {
             linesStream.forEach(line -> {
                 lines.add((String) line);

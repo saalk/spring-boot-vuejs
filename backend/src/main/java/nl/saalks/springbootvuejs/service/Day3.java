@@ -5,7 +5,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 import static java.lang.Math.round;
 
@@ -16,7 +19,9 @@ public class Day3 implements AdventOfCode {
     ArrayList<CommonBit> mostCommonBits = new ArrayList<>();
     ArrayList<CommonBit> leastCommonBits = new ArrayList<>();
 
-     public void calculateMostOrLeastCommonBitCriteriaForSpecificPosition(int position, MostOrLeast mostOrLeast) {
+    public void calculateMostOrLeastCommonBitCriteriaForSpecificPosition(int position, MostOrLeast mostOrLeast) {
+
+        LOG.info("calculateMostOrLeastCommon - begin - input: " + (position+1) + " - " + mostOrLeast );
 
         int binaryNumberArraySize = this.binaryNumbers.size();
         CommonBit commonBitToUpdate = new CommonBit(position, 0, 0, 0);
@@ -25,30 +30,38 @@ public class Day3 implements AdventOfCode {
         LOOP:
         for (int b = 0; b < binaryNumberArraySize; b++) {
             // Skip needed?
-            if (binaryNumbers.get(b).isSkipForMostCommonBit()) {
-                LOG.info("lifeSupportRating - skip: " + (b + 1) + " - " + binaryNumbers.get(b));
+            if (mostOrLeast == MostOrLeast.MOST && binaryNumbers.get(b).isSkipForMostCommonBit()) {
+                LOG.info("calculateMostOrLeastCommon - skip most: " + (b+1) + " - " + binaryNumbers.get(b));
+                continue LOOP;
+            }
+            if (mostOrLeast == MostOrLeast.LEAST && binaryNumbers.get(b).isSkipForLeastCommonBit()) {
+                LOG.info("calculateMostOrLeastCommon - skip least: " + (b+1) + " - " + binaryNumbers.get(b));
                 continue LOOP;
             }
             commonBitToUpdate.setCommonBitsToConsider(commonBitToUpdate.getCommonBitsToConsider() + 1);
-            commonBitToUpdate.setCountOneBits(binaryNumbers.get(b).getBinaryNumber()[b]);
+            commonBitToUpdate.setCountOneBits(commonBitToUpdate.getCountOneBits() +
+                    binaryNumbers.get(b).getBinaryNumber()[position]);
         }
+        LOG.info("calculateMostOrLeastCommon - end all binaryNumbers");
 
-        if (commonBitToUpdate.getCountOneBits() >= round(commonBitToUpdate.getCommonBitsToConsider() / 2)) {
+        int getCountZeroBits =
+                commonBitToUpdate.getCommonBitsToConsider()-commonBitToUpdate.getCountOneBits();
+        if (commonBitToUpdate.getCountOneBits() >= getCountZeroBits) {
             commonBitToUpdate.setCommonBit(mostOrLeast == MostOrLeast.MOST ? 1 : 0);
         } else {
             commonBitToUpdate.setCommonBit(mostOrLeast == MostOrLeast.MOST ? 0 : 1);
         }
-        LOG.info("lifeSupportRating - commonBitToUpdate: " + commonBitToUpdate.getCommonBit());
+        LOG.info("calculateMostOrLeastCommon - commonBitToUpdate: " + commonBitToUpdate);
 
         if (mostOrLeast == MostOrLeast.MOST) {
             mostCommonBits.add(commonBitToUpdate);
-            LOG.info("lifeSupportRating - mostCommonBits: " + mostCommonBits.toString());
+            LOG.info("calculateMostOrLeastCommon - mostCommonBits: " + mostCommonBits);
 
         } else {
             leastCommonBits.add(commonBitToUpdate);
-            LOG.info("lifeSupportRating - leastCommonBits: " + leastCommonBits.toString());
-
+            LOG.info("calculateMostOrLeastCommon - leastCommonBits: " + leastCommonBits);
         }
+        LOG.info("calculateMostOrLeastCommon - end method: " + (position+1) + " - " + mostOrLeast );
 
     }
 
@@ -119,16 +132,15 @@ public class Day3 implements AdventOfCode {
         int binaryLength = binaryNumbersGiven.size();
         int binaryNumberLength = binaryNumbersGiven.get(0).length();
 
-        LOG.info("binaryDiagnostic - total lines: " + binaryNumbersGiven.size());
+        LOG.info("lifeSupportRating - total lines: " + binaryNumbersGiven.size());
         String oxygenGeneratorRatingBinary = "";
         String CO2scrubberRatingBinary = "";
 
         // fill the local binary numbers with given binary number list
         for (int b = 0; b < binaryLength; b++) {
-            binaryNumbers.add( new BinaryNumbers(binaryNumbersGiven.get(b), b));
-            LOG.info("binaryDiagnostic - binaryNumbersGiven: " + binaryNumbersGiven.get(b));
-            LOG.info("binaryDiagnostic - binaryNumbers: " + binaryNumbers.get(b));
-
+            binaryNumbers.add(new BinaryNumbers(binaryNumbersGiven.get(b), b));
+            LOG.info("lifeSupportRating - binaryNumbersGiven: " + binaryNumbersGiven.get(b));
+            LOG.info("lifeSupportRating - binaryNumbers: " + binaryNumbers.get(b));
         }
 
         OUTER:
@@ -139,23 +151,22 @@ public class Day3 implements AdventOfCode {
             calculateMostOrLeastCommonBitCriteriaForSpecificPosition(p, MostOrLeast.MOST);
             calculateMostOrLeastCommonBitCriteriaForSpecificPosition(p, MostOrLeast.LEAST);
 
-            // update the skip flag for most and least common fro all
+            // update the skip flag for most and least common for all eg 1000
             for (int b = 0; b < binaryLength; b++) {
-                if (binaryNumbers.get(b).binaryNumber[b] != mostCommonBits.get(b).commonBit) {
+                if (binaryNumbers.get(b).binaryNumber[p] != mostCommonBits.get(p).commonBit) {
                     binaryNumbers.get(b).setSkipForMostCommonBit(true);
-                    LOG.info("binaryDiagnostic - binaryNumber skip for most common: "
-                            + binaryNumbers.get(b).getSequence() +
-                            " - "
+                    LOG.info("lifeSupportRating - binaryNumber pos" + (b+1) + " skip for most " +
+                            "common: "
+                            + binaryNumbers.get(b).getSequence() + " - "
                             + Arrays.toString(binaryNumbers.get(b).getBinaryNumber()));
-                };
-                if (binaryNumbers.get(b).binaryNumber[b] != leastCommonBits.get(b).commonBit) {
+                }
+                if (binaryNumbers.get(b).binaryNumber[p] != leastCommonBits.get(p).commonBit) {
                     binaryNumbers.get(b).setSkipForLeastCommonBit(true);
-                    LOG.info("binaryDiagnostic - binaryNumber skip for least common: "
-                            + binaryNumbers.get(b).getSequence() +
-                            " - "
+                    LOG.info("lifeSupportRating - binaryNumber pos" + (b+1) + " skip for least " +
+                            "common: "
+                            + binaryNumbers.get(b).getSequence() + " - "
                             + Arrays.toString(binaryNumbers.get(b).getBinaryNumber()));
-
-                };
+                }
             }
 
             // check if only one is present ?
@@ -165,20 +176,21 @@ public class Day3 implements AdventOfCode {
             if (mostCommonCount == 1) {
                 Optional<BinaryNumbers> mostCommon = binaryNumbers.stream().filter(a -> !a.isSkipForMostCommonBit()).findFirst();
                 if (mostCommon.isPresent()) {
-                    oxygenGeneratorRatingBinary = Arrays.toString(mostCommon.get().binaryNumber);
-                    LOG.info("binaryDiagnostic - binaryNumber only one: " + oxygenGeneratorRatingBinary);
+                    oxygenGeneratorRatingBinary = Arrays.toString(mostCommon.get().binaryNumber).replaceAll("\\[|\\]|,|\\s", "");;
+                    LOG.info("lifeSupportRating - oxygenGeneratorRatingBinary only one: " + oxygenGeneratorRatingBinary);
                 }
             }
             if (leastCommonCount == 1) {
                 Optional<BinaryNumbers> leastCommon =
                         binaryNumbers.stream().filter(a -> !a.isSkipForLeastCommonBit()).findFirst();
                 if (leastCommon.isPresent()) {
-                    CO2scrubberRatingBinary = Arrays.toString(leastCommon.get().binaryNumber);
-                    LOG.info("binaryDiagnostic - binaryNumber only one: " + CO2scrubberRatingBinary);
+                    CO2scrubberRatingBinary = Arrays.toString(leastCommon.get().binaryNumber).replaceAll("\\[|\\]|,|\\s", "");;
+                    LOG.info("lifeSupportRating - CO2scrubberRatingBinary only one: " + CO2scrubberRatingBinary);
                 }
             }
 
             if (mostCommonCount == 1 && leastCommonCount == 1) {
+//            if (mostCommonCount == 1) {
                 break OUTER;
             }
         }
@@ -187,11 +199,11 @@ public class Day3 implements AdventOfCode {
         int oxygenGeneratorRating = Integer.parseInt(oxygenGeneratorRatingBinary, 2);
         int CO2scrubberRating = Integer.parseInt(CO2scrubberRatingBinary, 2);
 
-        LOG.info("binaryDiagnostic - oxygenGeneratorRating: " + oxygenGeneratorRating);
-        LOG.info("binaryDiagnostic - CO2scrubberRating: " + CO2scrubberRating);
+        LOG.info("lifeSupportRating - oxygenGeneratorRating: " + oxygenGeneratorRating);
+        LOG.info("lifeSupportRating - CO2scrubberRating: " + CO2scrubberRating);
 
         int lifeSupportRating = oxygenGeneratorRating * CO2scrubberRating;
-        LOG.info("binaryDiagnostic - lifeSupportRating: " + lifeSupportRating);
+        LOG.info("lifeSupportRating - lifeSupportRating: " + lifeSupportRating);
 
         return lifeSupportRating;
     }
@@ -210,8 +222,9 @@ public class Day3 implements AdventOfCode {
         private boolean theOneLeftForCO2;
 
         public BinaryNumbers(String binaryNumbers, int position) {
-            for (int i = 0; i < binaryNumbers.length() ; i++) {
-                this.binaryNumber[i] = Integer.parseInt(binaryNumbers.substring(i,1));
+            this.binaryNumber = new int[binaryNumbers.length()];
+            for (int i = 0; i < binaryNumbers.length(); i++) {
+                this.binaryNumber[i] = Integer.parseInt(binaryNumbers.substring(i, i + 1));
             }
             this.sequence = position;
             this.skipForMostCommonBit = false;
