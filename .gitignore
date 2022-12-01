@@ -1,17 +1,23 @@
-*.class
-
-# Gradle
-.gradle
+HELP.md
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
 
 # Package Files #
 *.jar
 *.war
 *.ear
 
-# Eclipse #
-.settings
-.project
+### STS ###
+.apt_generated
 .classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+# Eclipse #
 .studio
 target
 
@@ -20,7 +26,9 @@ target
 
 # Intellij #
 .idea
+*.iws
 *.iml
+*.ipr
 *.log
 
 # VSCode
@@ -46,4 +54,3 @@ frontend/yarn.lock
 security/target/
 selenium-debug.log
 
-!.mvn/wrapper/maven-wrapper.jar

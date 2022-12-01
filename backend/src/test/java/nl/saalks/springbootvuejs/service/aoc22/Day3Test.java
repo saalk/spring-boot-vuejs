@@ -1,5 +1,6 @@
-package nl.saalks.springbootvuejs.service;
+package nl.saalks.springbootvuejs.service.aoc22;
 
+import nl.saalks.springbootvuejs.service.AdventOfCodeTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -44,7 +45,7 @@ class Day3Test implements AdventOfCodeTest {
     @DisplayName("3.1 - 2250414 powerConsumption for file")
     void binaryDiagnosticWithInputFile() {
 
-        List<String> lines = readFile("input-binary-diagnostic.txt");
+        List<String> lines = readFile("aoc21/input-binary-diagnostic.txt");
         int powerConsumption = fixture.powerConsumption(lines, lines.get(0).length());
         assertTrue("powerConsumption in report should be: ", powerConsumption == 2250414);
     }
@@ -75,7 +76,7 @@ class Day3Test implements AdventOfCodeTest {
     @DisplayName("3.2 - 6085575 lifeSupportRating for file")
     void lifeSupportRatingWithInputFile() {
 
-        ArrayList<String> lines = readFile("input-binary-diagnostic.txt");
+        ArrayList<String> lines = readFile("aoc21/input-binary-diagnostic.txt");
         int powerConsumption = fixture.lifeSupportRating(lines);
         assertTrue("lifeSupportRating in report should be: ", powerConsumption == 6085575);
     }

@@ -1,9 +1,8 @@
-package nl.saalks.springbootvuejs.service;
+package nl.saalks.springbootvuejs.service.aoc22;
 
-import jdk.nashorn.internal.ir.annotations.Ignore;
+import nl.saalks.springbootvuejs.service.AdventOfCodeTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
@@ -18,7 +17,8 @@ class Day5Test implements AdventOfCodeTest {
         fixture = new Day5();
     }
 
-    @Ignore
+
+
     @DisplayName("5.1 - 5 the number of lines which cover that point")
     void bingoWithExampleInput() {
 
@@ -38,11 +38,11 @@ class Day5Test implements AdventOfCodeTest {
         assertTrue("numberOfPoints in report should be: ", numberOfPoints == 5);
     }
 
-    @Ignore
+
     @DisplayName("5.1 - 51776 finalScore bingo for file")
     void bingoWithInputFile() {
 
-        ArrayList<String> lines = readFile("input-lines-of-vents.txt");
+        ArrayList<String> lines = readFile("aoc21/input-lines-of-vents.txt");
         int numberOfPoints = fixture.overlap(lines);
         assertTrue("numberOfPoints in report should be: ", numberOfPoints == 5);
 

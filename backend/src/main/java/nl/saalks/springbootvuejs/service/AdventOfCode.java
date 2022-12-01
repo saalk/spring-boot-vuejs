@@ -15,6 +15,12 @@ public interface AdventOfCode {
 
     Logger LOG = LoggerFactory.getLogger(AdventOfCode.class);
 
+    static String lineSeparator = System.getProperty("line.separator");
+
+    static boolean isBlankString(String string) {
+        return string == null || string.isBlank();
+    }
+
     static <T, U> List<U> convertStringListToIntList(List<T> listOfString,
                                                      Function<T, U> function) {
         // Function can be Integer::parseInt

@@ -1,15 +1,14 @@
-package nl.saalks.springbootvuejs.service;
+package nl.saalks.springbootvuejs.service.aoc21;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import nl.saalks.springbootvuejs.service.AdventOfCode;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
-import static nl.saalks.springbootvuejs.service.AdventOfCode.*;
+import static nl.saalks.springbootvuejs.service.AdventOfCode.computeSlidingWindow;
 import static nl.saalks.springbootvuejs.service.AdventOfCode.convertStringListToIntList;
 
 @Service

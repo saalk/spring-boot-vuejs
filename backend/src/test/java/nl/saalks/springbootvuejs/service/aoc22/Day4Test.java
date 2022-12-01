@@ -1,11 +1,11 @@
-package nl.saalks.springbootvuejs.service;
+package nl.saalks.springbootvuejs.service.aoc22;
 
+import nl.saalks.springbootvuejs.service.AdventOfCodeTest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.springframework.test.util.AssertionErrors.assertTrue;
 
@@ -52,7 +52,7 @@ class Day4Test implements AdventOfCodeTest {
     @DisplayName("4.1 - 51776 finalScore bingo for file")
     void bingoWithInputFile() {
 
-        ArrayList<String> lines = readFile("input-bingo.txt");
+        ArrayList<String> lines = readFile("aoc21/input-bingo.txt");
         int[] finalScores = fixture.bingo(lines);
         assertTrue("finalScoreFirst in report should be: ", finalScores[0] == 51776);
 //        assertTrue("finalScoreLast in report should be: ", finalScores[1] == 51776);

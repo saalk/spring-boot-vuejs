@@ -9,12 +9,13 @@ import java.util.stream.Stream;
 import static java.util.stream.Collectors.toMap;
 
 
-interface AdventOfCodeTest {
+public interface AdventOfCodeTest {
 
     default ArrayList<String> readFile(String resourceName) {
 
         ClassLoader classLoader = getClass().getClassLoader();
         File file = new File(classLoader.getResource(resourceName).getFile());
+
         System.out.println("File name :" + file.getName());
         System.out.println("Path: " + file.getPath());
         System.out.println("Absolute path: " + file.getAbsolutePath());

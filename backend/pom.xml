@@ -16,7 +16,9 @@
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<java.version>1.8</java.version>
+<!--		<java.version>1.8</java.version>-->
+		<java.version>17</java.version>
+		<spring-cloud-azure.version>6.0.0-beta.3</spring-cloud-azure.version>
 
 		<!-- backend dependencies -->
 		<rest-assured.version>4.4.0</rest-assured.version>
@@ -27,13 +29,13 @@
 		<commons-lang3.version>3.9</commons-lang3.version>
 		<commons-collections4.version>4.4</commons-collections4.version>
 		<commons-text.version>1.8</commons-text.version>
-		<lombok.version>1.18.10</lombok.version>
+		<lombok.version>1.18.22</lombok.version>
 
 		<!-- test -->
 		<!--<junit.version>4.12</junit.version> -->
-		<org.hamcrest.version>1.3</org.hamcrest.version>
-		<mockito.version>2.21.0</mockito.version>
-		<junit-jupiter.version>5.8.1</junit-jupiter.version>
+<!--		<org.hamcrest.version>1.3</org.hamcrest.version>-->
+<!--		<mockito.version>2.21.0</mockito.version>-->
+<!--		<junit-jupiter.version>5.8.1</junit-jupiter.version>-->
 		<slf4j-api>1.7.30</slf4j-api>
 
 		<!-- hibernate and in memory database -->
@@ -44,6 +46,23 @@
 	</properties>
 
 	<dependencies>
+
+		<!-- batch -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-batch</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
@@ -55,12 +74,30 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<artifactId>spring-boot-starter-data-rest</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-oauth2-client</artifactId>
+		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.boot</groupId>-->
+<!--			<artifactId>spring-boot-starter-data-jpa</artifactId>-->
+<!--		</dependency>-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jdbc</artifactId>
+		</dependency>
+
+		<!-- azure -->
+		<dependency>
+			<groupId>com.azure.spring</groupId>
+			<artifactId>spring-cloud-azure-starter</artifactId>
 		</dependency>
 
 		<!-- utility -->
@@ -79,60 +116,60 @@
 
 		<!-- Switch back from Spring Boot 2.x standard HikariCP to Tomcat JDBC,
 		configured later in Heroku (see https://stackoverflow.com/a/49970142/4964553) -->
-		<dependency>
-			<groupId>org.apache.tomcat</groupId>
-			<artifactId>tomcat-jdbc</artifactId>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.apache.tomcat</groupId>-->
+<!--			<artifactId>tomcat-jdbc</artifactId>-->
+<!--		</dependency>-->
 
 		<!-- PostgreSQL used in Staging and Production environment, e.g. on Heroku -->
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-            <version>${postgresql.version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.postgresql</groupId>-->
+<!--            <artifactId>postgresql</artifactId>-->
+<!--            <version>${postgresql.version}</version>-->
+<!--        </dependency>-->
+		<dependency>
+			<groupId>org.mariadb.jdbc</groupId>
+			<artifactId>mariadb-java-client</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 
 		<!-- Testing -->
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>io.rest-assured</groupId>
-			<artifactId>rest-assured</artifactId>
-			<version>${rest-assured.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-engine</artifactId>
-			<version>${junit-jupiter.version}</version>
-			<!--<scope>test</scope>-->
-		</dependency>
-		<dependency>
-			<groupId>org.hamcrest</groupId>
-			<artifactId>hamcrest-core</artifactId>
-			<version>${org.hamcrest.version}</version>
-			<!--<scope>test</scope>-->
-		</dependency>
-		<dependency>
-			<groupId>org.hamcrest</groupId>
-			<artifactId>hamcrest-library</artifactId>
-			<version>${org.hamcrest.version}</version>
-			<!--<scope>test</scope>-->
-		</dependency>
-		<dependency>
-			<groupId>org.hamcrest</groupId>
-			<artifactId>hamcrest-all</artifactId>
-			<version>${org.hamcrest.version}</version>
-			<!--scope>test</scope>-->
-		</dependency>
-		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-core</artifactId>
-			<version>${mockito.version}</version>
-			<!--scope>test</scope>-->
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>io.rest-assured</groupId>-->
+<!--			<artifactId>rest-assured</artifactId>-->
+<!--			<version>${rest-assured.version}</version>-->
+<!--			<scope>test</scope>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>org.junit.jupiter</groupId>-->
+<!--			<artifactId>junit-jupiter-engine</artifactId>-->
+<!--			<version>${junit-jupiter.version}</version>-->
+<!--			&lt;!&ndash;<scope>test</scope>&ndash;&gt;-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>org.hamcrest</groupId>-->
+<!--			<artifactId>hamcrest-core</artifactId>-->
+<!--			<version>${org.hamcrest.version}</version>-->
+<!--			&lt;!&ndash;<scope>test</scope>&ndash;&gt;-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>org.hamcrest</groupId>-->
+<!--			<artifactId>hamcrest-library</artifactId>-->
+<!--			<version>${org.hamcrest.version}</version>-->
+<!--			&lt;!&ndash;<scope>test</scope>&ndash;&gt;-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>org.hamcrest</groupId>-->
+<!--			<artifactId>hamcrest-all</artifactId>-->
+<!--			<version>${org.hamcrest.version}</version>-->
+<!--			&lt;!&ndash;scope>test</scope>&ndash;&gt;-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>org.mockito</groupId>-->
+<!--			<artifactId>mockito-core</artifactId>-->
+<!--			<version>${mockito.version}</version>-->
+<!--			&lt;!&ndash;scope>test</scope>&ndash;&gt;-->
+<!--		</dependency>-->
 
 		<!-- logging -->
 		<dependency>
@@ -154,13 +191,13 @@
 
 		<!-- The fixed groovy version is necessary after upgrade to Rest-Assured 4.3. because of conflicts otherwise
  		see https://stackoverflow.com/questions/61020200/getting-java-lang-abstractmethoderror-when-i-test-using-rest-assured -->
-		<dependency>
-			<groupId>org.codehaus.groovy</groupId>
-			<artifactId>groovy</artifactId>
-			<version>${groovy.version}</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.codehaus.groovy</groupId>-->
+<!--			<artifactId>groovy</artifactId>-->
+<!--			<version>${groovy.version}</version>-->
+<!--		</dependency>-->
 
-		<!-- Secure backend API -->
+		<!-- Secure backend API and Test-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
@@ -176,38 +213,94 @@
 
 	<build>
 		<plugins>
+<!--			<plugin>-->
+<!--				<groupId>org.apache.maven.plugins</groupId>-->
+<!--				<artifactId>maven-compiler-plugin</artifactId>-->
+<!--				<version>3.8.1</version>-->
+<!--				<configuration>-->
+<!--					<source>17</source>-->
+<!--					<target>17</target>-->
+<!--				</configuration>-->
+<!--			</plugin>-->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
 			</plugin>
-			<plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>copy Vue.js frontend content</id>
-                        <phase>generate-resources</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>src/main/resources/public</outputDirectory>
-                            <overwrite>true</overwrite>
-                            <resources>
-                                <resource>
-                                    <directory>${project.parent.basedir}/frontend/target/dist</directory>
-                                    <includes>
-                                        <include>static/</include>
-                                        <include>index.html</include>
-										<include>favicon.ico</include>
-                                    </includes>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+<!--			<plugin>-->
+<!--                <artifactId>maven-resources-plugin</artifactId>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>copy Vue.js frontend content</id>-->
+<!--                        <phase>generate-resources</phase>-->
+<!--                        <goals>-->
+<!--                            <goal>copy-resources</goal>-->
+<!--                        </goals>-->
+<!--                        <configuration>-->
+<!--                            <outputDirectory>src/main/resources/public</outputDirectory>-->
+<!--                            <overwrite>true</overwrite>-->
+<!--                            <resources>-->
+<!--                                <resource>-->
+<!--                                    <directory>${project.parent.basedir}/frontend/target/dist</directory>-->
+<!--                                    <includes>-->
+<!--                                        <include>static/</include>-->
+<!--                                        <include>index.html</include>-->
+<!--										<include>favicon.ico</include>-->
+<!--                                    </includes>-->
+<!--                                </resource>-->
+<!--                            </resources>-->
+<!--                        </configuration>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
+
 		</plugins>
 	</build>
+
+<!--	new stuff -->
+	<repositories>
+		<repository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/milestone</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>spring-snapshots</id>
+			<name>Spring Snapshots</name>
+			<url>https://repo.spring.io/snapshot</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/milestone</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</pluginRepository>
+		<pluginRepository>
+			<id>spring-snapshots</id>
+			<name>Spring Snapshots</name>
+			<url>https://repo.spring.io/snapshot</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+		</pluginRepository>
+	</pluginRepositories>
 
 
 </project>

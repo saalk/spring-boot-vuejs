@@ -1,5 +1,7 @@
-package nl.saalks.springbootvuejs.service;
+package nl.saalks.springbootvuejs.service.aoc21;
 
+import nl.saalks.springbootvuejs.service.AdventOfCodeTest;
+import nl.saalks.springbootvuejs.service.aoc21.Day1;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,7 +24,7 @@ class Day1Test implements AdventOfCodeTest {
     @DisplayName("1.1 - 1226 times increased for file")
     void sonarSweepWithInputFile() {
 
-        List<String> lines = readFile("input-sonar-sweep.txt");
+        List<String> lines = readFile("aoc21/input-sonar-sweep.txt");
         int increases = fixture.sonarSweep(lines);
         assertTrue("increases in report should be 1226", increases == 1226);
     }
@@ -31,7 +33,7 @@ class Day1Test implements AdventOfCodeTest {
     @DisplayName("1.1 - 1226 times increased for file")
     void sonarSweepStreamWithInputFile() {
 
-        List<String> lines = readFile("input-sonar-sweep.txt");
+        List<String> lines = readFile("aoc21/input-sonar-sweep.txt");
         int increases = fixture.sonarSweepStream(lines);
         assertTrue("increases in report should be 1226", increases == 1226);
     }
@@ -40,7 +42,7 @@ class Day1Test implements AdventOfCodeTest {
     @DisplayName("1.1 - 1226 times increased for file")
     void sonarSweepSimpleWithInputFile() {
 
-        List<String> lines = readFile("input-sonar-sweep.txt");
+        List<String> lines = readFile("aoc21/input-sonar-sweep.txt");
         int increases = fixture.sonarSweepSimple(lines);
         assertTrue("increases in report should be 1226", increases == 1226);
     }
@@ -49,7 +51,7 @@ class Day1Test implements AdventOfCodeTest {
     @DisplayName("1.2 - 1252 times increased for file")
     void threeMeasurementSlidingWindowWithInputFile() {
 
-        List<String> lines = readFile("input-sonar-sweep.txt");
+        List<String> lines = readFile("aoc21/input-sonar-sweep.txt");
         int increases = fixture.threeMeasurementSlidingWindow(lines);
         assertTrue("increases in sliding windows should be ", increases == 1252);
     }

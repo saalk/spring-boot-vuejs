@@ -1,8 +1,9 @@
-package nl.saalks.springbootvuejs.service;
+package nl.saalks.springbootvuejs.service.aoc21;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import nl.saalks.springbootvuejs.service.AdventOfCode;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
