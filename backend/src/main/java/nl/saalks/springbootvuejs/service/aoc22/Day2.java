@@ -6,7 +6,6 @@ import nl.saalks.springbootvuejs.service.AdventOfCode;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -14,145 +13,211 @@ import java.util.stream.Collectors;
 @Service
 public class Day2 implements AdventOfCode {
 
-    /**
-     * Calculate the horizontal position and depth.
-     * @param plannedCourse the lines eg "forward 5"
-     * @return multiply your final horizontal position by your final depth
+    /** Day 2 - 1
+     * Calculate the score of a score Rock Paper Scissors tournament.
+     * opponent has A = rock, B = paper, C = scissors
+     * C beats B beats A beats C - win is
+     * - 1 for Rock, 2 for Paper, and 3 for Scissors PLUS
+     * - 0 if you lost, 3 if the round was a draw, and 6 if you won
+     *
+     * BTW you have X = rock, Y = paper, Z = scissors
+     * @param encryptedStrategyGuide the lines eg "A X"
+     * @return calculated score
      */
-    public int pilotTheSub(List<String> plannedCourse) {
+    public int scoreRockPaperScissors(List<String> encryptedStrategyGuide) {
 
-        LOG.info("pilotTheSub - total lines: " + plannedCourse.size());
+        LOG.info("RockPaperScissorsRound - total lines: " + encryptedStrategyGuide.size());
 
-        int horizontalPosition = 0;
-        int depth = 0;
+        List<RockPaperScissorsRound> rockPaperScissorRounds = new ArrayList<>();
+        RockPaperScissorsRound currentRockPaperScissorsRound;
 
+        String opponentHand  = "";
+        String yourHand = "";
+
+        int yourTotalScore = 0;
 
         // for-each loop the file lines
-        for (String step : plannedCourse) {
+        for (String round : encryptedStrategyGuide) {
+            //LOG.info("RockPaperScissorsRound - " + round + " gives : " + score);
 
             List<String> split = Pattern
                     .compile(" ")
-                    .splitAsStream(step)
+                    .splitAsStream(round)
                     .collect(Collectors.toList());
 
-            String command = split.get(0);
-            int count = Integer.parseInt(split.get(1));
+            opponentHand = split.get(0);
+            yourHand = split.get(1); //Integer.parseInt(split.get(1));
 
-            switch(command) {
-                case "forward":
-                    horizontalPosition = horizontalPosition+count;
-                    LOG.info("pilotTheSub - " + split + " gives : " + horizontalPosition);
-                    break;
-                case "down":
-                    depth = depth+count;
-                    LOG.info("pilotTheSub - " + split + " gives : " + depth);
-                    break;
-                case "up":
-                    depth = depth-count;
-                    LOG.info("pilotTheSub - " + split + " gives : " + depth);
-
-                    break;
-                default:
-                    LOG.info("pilotTheSub - " + split + " gives : ?");
-            }
+            // populate the
+            currentRockPaperScissorsRound = switch(yourHand) {
+                case "X" -> new RockPaperScissorsRound(opponentHand,"A",0,null);
+                case "Y" -> new RockPaperScissorsRound(opponentHand,"B",0,null);
+                case "Z" -> new RockPaperScissorsRound(opponentHand,"C",0,null);
+                default -> throw new IllegalStateException("Invalid X,Y,Z status: " + yourHand);
+            };
+            currentRockPaperScissorsRound.yourScore = rockPaperScissorsScoreOfARound(currentRockPaperScissorsRound);
+            yourTotalScore = yourTotalScore + currentRockPaperScissorsRound.yourScore;
+            LOG.info("Rock Paper Scissors - round: " + round + " score: " + currentRockPaperScissorsRound.yourScore);
+            LOG.info("A/X = rock, B/Y = paper, C/Z = scissors " + lineSeparator);
+            rockPaperScissorRounds.add(currentRockPaperScissorsRound);
         }
 
-        LOG.info("pilotTheSub - horizontalPosition: " + horizontalPosition);
-        LOG.info("pilotTheSub - depth: " + depth);
-        LOG.info("pilotTheSub - horizontalPosition * depth: " + horizontalPosition*depth);
-
-
-        return horizontalPosition*depth;
+        LOG.info("Rock Paper Scissors - score: " + yourTotalScore);
+        return yourTotalScore;
     }
 
-    public int aimTheSub(List<String> plannedCourse) {
+    @AllArgsConstructor
+    @Data
+    class RockPaperScissorsRound {
+        String opponentHand;
+        String yourHand;
+        int yourScore;
+        RoundResult yourRoundResult;
+    };
 
-        LOG.info("aimTheSub - total lines: " + plannedCourse.size());
+    // A = rock, B = paper, C = scissors
+    static int rockPaperScissorsScoreOfARound(RockPaperScissorsRound rockPaperScissorsRound) {
+        if (rockPaperScissorsRound.opponentHand.equals(rockPaperScissorsRound.yourHand)) {
+            return rockPaperScissorsScoreCalculateRound(rockPaperScissorsRound.yourHand,RoundResult.draw);
+        } else if (rockPaperScissorsRound.opponentHand.equals("A")) {
+            if (rockPaperScissorsRound.yourHand.equals("B")) {
+                return rockPaperScissorsScoreCalculateRound(rockPaperScissorsRound.yourHand, RoundResult.win);
+            } else {
+                return rockPaperScissorsScoreCalculateRound(rockPaperScissorsRound.yourHand,
+                        RoundResult.lose);
+            }
+        } else if (rockPaperScissorsRound.opponentHand.equals("B")) {
+            if (rockPaperScissorsRound.yourHand.equals("C")) {
+                return rockPaperScissorsScoreCalculateRound(rockPaperScissorsRound.yourHand, RoundResult.win);
+            } else {
+                return rockPaperScissorsScoreCalculateRound(rockPaperScissorsRound.yourHand,
+                        RoundResult.lose);
+            }
+        } else {
+            // always opponent has C
+            if (rockPaperScissorsRound.yourHand.equals("A")) {
+                return rockPaperScissorsScoreCalculateRound(rockPaperScissorsRound.yourHand, RoundResult.win);
+            } else {
+                return rockPaperScissorsScoreCalculateRound(rockPaperScissorsRound.yourHand,
+                        RoundResult.lose);
+            }
+        }
+    }
+    enum RoundResult {draw, lose, win}
+    static int rockPaperScissorsScoreCalculateRound(String shape, RoundResult result) {
+        int outcome = 0;
+        switch (shape) {
+            // Rock is 1
+            case "A" -> outcome = 1 + outcomeOfRoundResultValue(result);
+            // Paper is 2
+            case "B" -> outcome = 2 + outcomeOfRoundResultValue(result);
+            // Scissors is 3
+            case "C" -> outcome = 3 + outcomeOfRoundResultValue(result);
+        }
+        LOG.info("Rock Paper Scissors - total outcome with shape 1,2 or 3 added: " + result);
 
-        int horizontalPosition = 0;
-        int depth = 0;
-        int aim = 0;
+        return outcome;
+    }
+    static int outcomeOfRoundResultValue(RoundResult roundResult) {
+        int result = 0;
+        switch (roundResult) {
+            case lose -> result = 0;
+            case draw -> result = 3;
+            case win -> result = 6;
+            default -> result = -999999;
+        }
+        LOG.info("Rock Paper Scissors - result of round value 0,3,6: " + result);
+
+        return result;
+    }
+
+    /** day 2 -2
+     * opponent has A = rock, B = paper, C = scissors
+     * C beats B beats A beats C - win is
+     * - 1 for Rock, 2 for Paper, and 3 for Scissors PLUS
+     * - 0 if you lost, 3 if the round was a draw, and 6 if you won
+     *
+     * BTW you have X = you need to lose, Y = you need to draw, Z = you need to win
+     * @param encryptedStrategyGuide the lines eg "A X"
+     * @return calculated score
+     */
+    public int scoreRockPaperScissorsSecond(List<String> encryptedStrategyGuide) {
+
+        LOG.info("RockPaperScissorsRound - total lines: " + encryptedStrategyGuide.size());
+
+        List<RockPaperScissorsRound> rockPaperScissorRounds = new ArrayList<>();
+        RockPaperScissorsRound currentRockPaperScissorsRound;
+
+        String opponentHand  = "";
+        String yourResult = "";
+
+        int yourTotalScore = 0;
 
         // for-each loop the file lines
-        for (String step : plannedCourse) {
+        for (String round : encryptedStrategyGuide) {
+            //LOG.info("RockPaperScissorsRound - " + round + " gives : " + score);
 
             List<String> split = Pattern
                     .compile(" ")
-                    .splitAsStream(step)
+                    .splitAsStream(round)
                     .collect(Collectors.toList());
 
-            String command = split.get(0);
-            int count = Integer.parseInt(split.get(1));
+            opponentHand = split.get(0);
+            yourResult = split.get(1); //Integer.parseInt(split.get(1));
 
-            switch(command) {
-                case "forward":
-                    horizontalPosition = horizontalPosition+count;
-                    depth = depth + (aim * count);
-                    LOG.info("aimTheSub - " + split + " gives horizon: " + horizontalPosition);
-                    LOG.info("aimTheSub - " + split + " gives depth: " + depth);
-                    break;
-                case "down":
-                    aim = aim+count;
-                    LOG.info("aimTheSub - " + split + " gives : " + aim);
-                    break;
-                case "up":
-                    aim = aim-count;
-                    LOG.info("aimTheSub - " + split + " gives : " + aim);
+            // populate the class
+            currentRockPaperScissorsRound = switch(yourResult) {
+                case "X" -> new RockPaperScissorsRound(opponentHand,"",0,RoundResult.lose);
+                case "Y" -> new RockPaperScissorsRound(opponentHand,"",0,RoundResult.draw);
+                case "Z" -> new RockPaperScissorsRound(opponentHand,"",0,RoundResult.win);
+                default -> throw new IllegalStateException("Invalid X,Y,Z status: " + yourResult);
+            };
 
-                    break;
-                default:
-                    LOG.info("aimTheSub - " + split + " gives : ?");
-            }
+            currentRockPaperScissorsRound.yourScore = rockPaperScissorsHandOfARound(currentRockPaperScissorsRound);
+
+            yourTotalScore = yourTotalScore + currentRockPaperScissorsRound.yourScore;
+            LOG.info("Rock Paper Scissors - round: " + round + " score: " + currentRockPaperScissorsRound.yourScore);
+            LOG.info("A/X = rock, B/Y = paper, C/Z = scissors " + lineSeparator);
+            rockPaperScissorRounds.add(currentRockPaperScissorsRound);
         }
-
-        LOG.info("aimTheSub - horizontalPosition: " + horizontalPosition);
-        LOG.info("aimTheSub - depth: " + depth);
-        LOG.info("aimTheSub - horizontalPosition * depth: " + horizontalPosition*depth);
-
-
-        return horizontalPosition*depth;
+        LOG.info("Rock Paper Scissors - score: " + yourTotalScore);
+        return yourTotalScore;
     }
 
-    public int aimTheSubHashMap(List<String> plannedCourse) {
 
-        LOG.info("aimTheSubHashMap - total lines: " + plannedCourse.size());
-
-        HashMap<String, Integer> map = new HashMap();
-        map.put("depth", 0);
-        map.put("forward", 0);
-        map.put("aim", 0);
-
-        // for-each loop the file lines
-        for (String line : plannedCourse) {
-
-            String[] split = line.split(" ");
-
-            if(split[0].equals("down")){
-                map.put("aim",
-                        (map.get("aim") + Integer.parseInt(split[1]))
-                );
-            } else if (split[0].equals("up")){
-                map.put("aim",
-                        (map.get("aim") - Integer.parseInt(split[1]))
-                );
-            } else if (split[0].equals("forward")){
-                map.put("forward",
-                        (map.get("forward") + Integer.parseInt(split[1]))
-                );
-                map.put("depth",
-                        (map.get("depth") +
-                                (map.get("aim") * Integer.parseInt(split[1]))
-                        )
-                );
+    // X = you need to lose, Y = you need to draw, Z = you need to win
+    // opponent has A = rock, B = paper, C = scissors
+    static int rockPaperScissorsHandOfARound(RockPaperScissorsRound rockPaperScissorsRound) {
+        if (rockPaperScissorsRound.yourRoundResult.equals(RoundResult.draw)) {
+            // draw
+            rockPaperScissorsRound.yourHand = rockPaperScissorsRound.opponentHand;
+        } else if (rockPaperScissorsRound.opponentHand.equals("A")) {
+            // you win with opponent A
+            if (rockPaperScissorsRound.yourRoundResult.equals(RoundResult.win)) {
+                rockPaperScissorsRound.yourHand = "B";
+            } else {
+                // you lose with opponent A
+                rockPaperScissorsRound.yourHand = "C";
+            }
+        } else if (rockPaperScissorsRound.opponentHand.equals("B")) {
+            // you win with opponent B
+            if (rockPaperScissorsRound.yourRoundResult.equals(RoundResult.win)) {
+                rockPaperScissorsRound.yourHand = "C";
+            } else {
+                // you lose with opponent B
+                rockPaperScissorsRound.yourHand = "A";
+            }
+        } else {
+            // always opponent has C
+            if (rockPaperScissorsRound.yourRoundResult.equals(RoundResult.win)) {
+                // you win with opponent C
+                rockPaperScissorsRound.yourHand = "A";
+            } else {
+                // you lose with opponent C
+                rockPaperScissorsRound.yourHand = "B";
             }
         }
-
-        LOG.info("aimTheSubHashMap - horizontalPosition: " + map.get("forward"));
-        LOG.info("aimTheSubHashMap - depth: " + map.get("depth"));
-        LOG.info("aimTheSubHashMap - horizontalPosition * depth: " + map.get("forward")*map.get("depth"));
-
-
-        return map.get("forward")*map.get("depth");
+        return rockPaperScissorsScoreCalculateRound(rockPaperScissorsRound.yourHand,
+                rockPaperScissorsRound.yourRoundResult);
     }
-
 }
