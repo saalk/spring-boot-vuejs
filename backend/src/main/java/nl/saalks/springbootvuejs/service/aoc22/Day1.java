@@ -5,9 +5,7 @@ import lombok.Data;
 import nl.saalks.springbootvuejs.service.AdventOfCode;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -23,7 +21,7 @@ public class Day1 implements AdventOfCode {
      * @param inventory - the calorie of a series of item eg "1000 ", "400 ", " " for an elf
      * @return the nth elf with most calories
      */
-    public int elfWithMostCaloriesSimple(List<String> inventory) {
+    public int[] elfWithMostCaloriesSimple(List<String> inventory) {
 
         LOG.info("elfWithMostCalories - total lines: " + inventory.size());
         int countCalories = 0;
@@ -60,171 +58,94 @@ public class Day1 implements AdventOfCode {
         }
 
         LOG.info("elfWithMostCalories - elfWithMostCalories: " + elfWithMostCalories);
+        LOG.info("elfWithMostCalories - calories of elfWithMostCalories: " + caloriesForElfWithMostCalories);
 
-        return elfWithMostCalories;
+       int[] intArray = {elfWithMostCalories,caloriesForElfWithMostCalories} ;
+       return intArray;
     }
 
     /**
-     * Returns the times depth increases for a given depth report.
+     * Returns the total calories of the top 3 elves carrying the most calories.
      *
-     * @param depthReport the int array
-     * @return the times a depth increases
+     * @param inventory - the calorie of a series of item eg "1000 ", "400 ", " " for an elf
+     * @return the top 3 elves with most calories total calories
      */
-    public int elfWithMostCaloriesForEach(List<String> depthReport) {
+    public int totalCaloriesOftop3elvesWithMostCalories(List<String> inventory) {
 
-        LOG.info("sonarSweep - total lines: " + depthReport.size());
+        LOG.info("top3elvesWithMostCalories - total lines: " + inventory.size());
 
-        int previousDepth = 0;
+        List<ElfAndCalorie> elfAndCalories = new ArrayList<>();
 
-        int timesIncreased = 0;
-        int timesNotIncreased = 0;
-        int timesSkipped = 0;
+        int countCalories = 0;
+        int currentElf = 1;
+        int elfWithMostCalories = 0;
+        int caloriesForElfWithMostCalories = 0;
 
-        // for-each loop the file lines
-        for (String stringDepth : depthReport) {
+        // get a list of all elves and calories
+        for (int i = 0; i < inventory.size(); i++) {
+            // LOG.info("elfWithMostCalories - line: " + i + " content: " + inventory.get(i));
 
-            int depth = Integer.parseInt(stringDepth);
-            if (previousDepth == 0) {
-                timesSkipped++;
-            } else if (depth > previousDepth) {
-                timesIncreased++; // easily add 1
+            if (isBlankString(inventory.get(i))) {
+                // end of current elf inventory
+                elfAndCalories.add(new ElfAndCalorie(currentElf, countCalories));
+                LOG.info("top3elvesWithMostCalories - elf: " + currentElf + " calories: "
+                            + countCalories);
+                // LOG.info(lineSeparator);
+                // reset for next elf
+                countCalories = 0;
+                currentElf++;
             } else {
-                timesNotIncreased++;
+                // count calories for this elf
+                List<String> split = Pattern
+                        .compile(" ")
+                        .splitAsStream(inventory.get(i))
+                        .collect(Collectors.toList());
+                int calories = Integer.parseInt(split.get(0));
+                countCalories = countCalories + calories;
             }
-            previousDepth = depth;
         }
 
-        LOG.info("sonarSweep - increased: " + timesIncreased);
-        LOG.info("sonarSweep - not increased: " + timesNotIncreased);
-        LOG.info("sonarSweep - skipped: " + timesSkipped);
+        LOG.info("top3elvesWithMostCalories - get top 3 from total elves: " + (elfAndCalories.size()));
 
-        return timesIncreased;
-    }
+        int number1 = 0;
+        int number2 = 0;
+        int number3 = 0;
+        int countTop3Calories = 0;
 
-    public int elfWithMostCaloriesStream(List<String> depthReport) {
-
-        LOG.info("sonarSweepStream - total lines: " + depthReport.size());
-
-        List<Integer> intDepthReport = convertStringListToIntList(depthReport, Integer::parseInt);
-
-        int timesIncreased = computeSlidingWindow(intDepthReport, 1);  //Part 1
-//        int valuePart2 = compute(intDepthReport, 3); //Part 2
-
-        LOG.info("sonarSweepStream - increased: " + timesIncreased);
-
-        return timesIncreased;
-    }
-
-    /**
-     * Returns the 3 sliding window depth increases for a given depth report.
-     *
-     * @param depthReport the int array
-     * @return the times a slidingWindow increases
-     */
-    public int threeMeasurementSlidingWindow(List<String> depthReport) {
-
-        LOG.info("threeMeasurementSlidingWindow - total lines: " + depthReport.size());
-        LOG.info("threeMeasurementSlidingWindow - calculated slidingWindows: " + (depthReport.size() - 2));
-
-        List<SlidingWindow> slidingWindows = new ArrayList<>();
-
-        int currentWindowKey = 0;
-        int maxWindowKeys = depthReport.size() - 2;
-
-        int olderWindowDepth = 0;
-        int oldWindowDepth = 0;
-
-        // for-each - loop the file lines create sliding windows
-        for (String stringDepth : depthReport) {
-            int depth = Integer.parseInt(stringDepth);
-            currentWindowKey++;
-
-            if (currentWindowKey == 1) {
-                // first
-                slidingWindows.add(new SlidingWindow(currentWindowKey, depth));
-            } else if (currentWindowKey == 2) {
-                // second
-                slidingWindows.add(new SlidingWindow(currentWindowKey, depth));
-                // update first
-                SlidingWindow oldWindow = slidingWindows.get(currentWindowKey - 2);
-                oldWindowDepth = oldWindow.getSum() + depth;
-                oldWindow.setSum(oldWindowDepth);
-                slidingWindows.set(currentWindowKey - 2, oldWindow);
-            } else {
-                // new
-                if (currentWindowKey <= maxWindowKeys) {
-                    slidingWindows.add(new SlidingWindow(currentWindowKey, depth));
-                    // update old
-                    SlidingWindow oldWindow = slidingWindows.get(currentWindowKey - 2);
-                    oldWindowDepth = oldWindow.getSum() + depth;
-                    oldWindow.setSum(oldWindowDepth);
-                    slidingWindows.set(currentWindowKey - 2, oldWindow);
-                    // update older
-                    SlidingWindow olderWindow = slidingWindows.get(currentWindowKey - 3);
-                    olderWindowDepth = olderWindow.getSum() + depth;
-                    olderWindow.setSum(olderWindowDepth);
-                    slidingWindows.set(currentWindowKey - 3, olderWindow);
-                } else if (currentWindowKey == maxWindowKeys + 1) {
-                    // update last but current window key is already + 2
-                    SlidingWindow oldWindow = slidingWindows.get(currentWindowKey - 2);
-                    oldWindowDepth = oldWindow.getSum() + depth;
-                    oldWindow.setSum(oldWindowDepth);
-                    slidingWindows.set(currentWindowKey - 2, oldWindow);
-                    // update old
-                    SlidingWindow olderWindow = slidingWindows.get(currentWindowKey - 3);
-                    olderWindowDepth = olderWindow.getSum() + depth;
-                    olderWindow.setSum(olderWindowDepth);
-                    slidingWindows.set(currentWindowKey - 3, olderWindow);
-                } else {
-                    // update last but current window key is already + 3
-                    SlidingWindow oldWindow = slidingWindows.get(currentWindowKey - 3);
-                    oldWindowDepth = oldWindow.getSum() + depth;
-                    oldWindow.setSum(oldWindowDepth);
-                    slidingWindows.set(currentWindowKey - 3, oldWindow);
-                }
+        // sort the list desc - first make a comparator
+        Comparator<ElfAndCalorie> compareById = new Comparator<ElfAndCalorie>() {
+            @Override
+            public int compare(ElfAndCalorie o1, ElfAndCalorie o2) {
+                return o1.getCalories().compareTo(o2.getCalories());
             }
+        };
+        // sort the list desc - use comparator to sort desc
+        Collections.sort(elfAndCalories, compareById.reversed());
 
-        }
-        LOG.info("threeMeasurementSlidingWindow - real slidingWindows: " + (slidingWindows.size()));
+        int caloriesForTop3ElvesWithMostCalories = 0 ;
+        caloriesForTop3ElvesWithMostCalories = elfAndCalories.get(0).calories;
+        caloriesForTop3ElvesWithMostCalories =
+                caloriesForTop3ElvesWithMostCalories + elfAndCalories.get(1).calories;
+        caloriesForTop3ElvesWithMostCalories =
+                caloriesForTop3ElvesWithMostCalories + elfAndCalories.get(2).calories;
 
-        int previousSum = 0;
-        int timesIncreased = 0;
-        int timesNotIncreased = 0;
-        int timesSkipped = 0;
-        int timesNoChange = 0;
+        LOG.info("top3elvesWithMostCalories - top3 - elf: " + elfAndCalories.get(0).elf + " - " +
+                "calories :" + elfAndCalories.get(0).calories );
+        LOG.info("top3elvesWithMostCalories - top3 - elf: " + elfAndCalories.get(1).elf + " - " +
+                "calories :" + elfAndCalories.get(1).calories );
+        LOG.info("top3elvesWithMostCalories - top3 - elf: " + elfAndCalories.get(2).elf + " - " +
+                "calories :" + elfAndCalories.get(2).calories );
 
-        // for-each - loop the sliding windows
-        for (SlidingWindow slidingWindow : slidingWindows) {
+        LOG.info("top3TotalCalories: " + caloriesForTop3ElvesWithMostCalories );
 
-            int sum = slidingWindow.getSum();
-            if (previousSum == 0) {
-                timesSkipped++;
-            } else if (sum > previousSum) {
-                timesIncreased++; // easily add 1
-            } else if (sum == previousSum) {
-                timesNoChange++;
-            } else {
-                timesNotIncreased++;
-            }
-            previousSum = sum;
-
-            LOG.info("threeMeasurementSlidingWindow - slidingWindows: " + slidingWindow);
-
-        }
-
-        LOG.info("threeMeasurementSlidingWindow - increased: " + timesIncreased);
-        LOG.info("threeMeasurementSlidingWindow - not increased: " + timesNotIncreased);
-        LOG.info("threeMeasurementSlidingWindow - no change: " + timesNoChange);
-        LOG.info("threeMeasurementSlidingWindow - skipped: " + timesSkipped);
-
-        return timesIncreased;
+        return caloriesForTop3ElvesWithMostCalories;
     }
 
     @AllArgsConstructor
     @Data
-    static class SlidingWindow {
-        private int mark;
-        private int sum;
+    static class ElfAndCalorie {
+        private Integer elf;
+        private Integer calories;
     }
 
 }

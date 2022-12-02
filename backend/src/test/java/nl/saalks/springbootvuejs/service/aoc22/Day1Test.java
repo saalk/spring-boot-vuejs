@@ -22,65 +22,38 @@ class Day1Test implements AdventOfCodeTest {
 
     @Test
     @DisplayName("1.1 - 4th elf carries most calories")
-    void elfWithMostCaloriesSimpleExampleWithInputFile() {
+    void elfWithMostCaloriesSimpleWithExampleInputFile() {
 
         @NotNull List<String> lines = readFile("aoc22/input-elf-calories-example.txt");
-        int elf = fixture.elfWithMostCaloriesSimple(lines);
-        assertTrue("elf that carries most calories should be 4", elf == 4);
+        int[] elfWithMostCalories = fixture.elfWithMostCaloriesSimple(lines);
+        assertTrue("elf that carries most calories should be 26", elfWithMostCalories[0] == 4);
+        assertTrue("elf that carries most calories carries ", elfWithMostCalories[1] == 24000);
     }
 
     @Test
-    @DisplayName("1.1 - nth elf carries most calories")
-    void elfWithMostCaloriesSimpleWithInputFile() {
+    @DisplayName("1.1 - 26th elf carries x calories")
+    void elfWithMostCaloriesSimpleWithRealInputFile() {
 
         List<String> lines = readFile("aoc22/input-elf-calories.txt");
-        int elf = fixture.elfWithMostCaloriesSimple(lines);
-        assertTrue("elf that carries most calories should be 26", elf == 26);
+        int[] elfWithMostCalories = fixture.elfWithMostCaloriesSimple(lines);
+        assertTrue("elf that carries most calories should be 26", elfWithMostCalories[0] == 26);
+        assertTrue("elf that carries most calories carries ", elfWithMostCalories[1] == 70764);
     }
 
     @Test
-    @DisplayName("1.1 - 4th elf carries most calories")
-    void elfWithMostCaloriesForEachExampleWithInputFile() {
+    @DisplayName("1.2 - top3 for example file")
+    void totalCaloriesOftop3elvesWithMostCaloriesWithExampleInputFile() {
 
         List<String> lines = readFile("aoc22/input-elf-calories-example.txt");
-        int elf = fixture.elfWithMostCaloriesForEach(lines);
-        assertTrue("elf that carries most calories should be 4", elf == 4);
+        int top3 = fixture.totalCaloriesOftop3elvesWithMostCalories(lines);
+        assertTrue("total Calories Of top3elves WithMostCalories ", top3 == 41000);
     }
-
     @Test
-    @DisplayName("1.1 - 1226 times increased for file")
-    void elfWithMostCaloriesStreamWithInputFile() {
+    @DisplayName("1.2 - top3 for real file")
+    void totalCaloriesOftop3elvesWithMostCaloriesWithRealInputFile() {
 
-        List<String> lines = readFile("aoc21/input-sonar-sweep.txt");
-        int increases = fixture.elfWithMostCaloriesStream(lines);
-        assertTrue("increases in report should be 1226", increases == 1226);
-    }
-
-    @Test
-    @DisplayName("1.2 - 1252 times increased for file")
-    void threeMeasurementSlidingWindowWithInputFile() {
-
-        List<String> lines = readFile("aoc21/input-sonar-sweep.txt");
-        int increases = fixture.threeMeasurementSlidingWindow(lines);
-        assertTrue("increases in sliding windows should be ", increases == 1252);
-    }
-
-    @Test
-    @DisplayName("1.2 - 5 times increased for example")
-    void threeMeasurementSlidingWindowWithExampleData() {
-
-        List<String> lines = new ArrayList<>();
-        lines.add("199");
-        lines.add("200");
-        lines.add("208");
-        lines.add("210");
-        lines.add("200");
-        lines.add("207");
-        lines.add("240");
-        lines.add("269");
-        lines.add("260");
-        lines.add("263");
-        int increases = fixture.threeMeasurementSlidingWindow(lines);
-        assertTrue("increases in sliding windows should be 5", increases == 5);
+        List<String> lines = readFile("aoc22/input-elf-calories.txt");
+        int top3 = fixture.totalCaloriesOftop3elvesWithMostCalories(lines);
+        assertTrue("total Calories Of top3elves WithMostCalories  ", top3 == 70764+67568+65573);
     }
 }
