@@ -1,219 +1,114 @@
 package nl.saalks.springbootvuejs.service.aoc22;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import nl.saalks.springbootvuejs.service.AdventOfCode;
+
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Service
 public class Day3 implements AdventOfCode {
+	
+	@AllArgsConstructor
+	@NoArgsConstructor
+	@Data
+	class Rucksack {
+		String firstCompartment;
+		String secondCompartment;
+		List<CommonItem> commonItems;
+	}
+	
+	;
+	
+	class CommonItem {
+		String commonItem;
+		int priority;
+	}
+	
+	/**
+	 * Day 3 - 1
+	 * Each rucksack has two large compartments. All items of a given type are meant to go into
+	 * exactly one of the two compartments.
+	 * Find the item type that appears in both compartments of each rucksack.
+	 * What is the sum of the priorities of those item types?
+	 *
+	 * @param rucksacksContents the lines eg "vJrwpWtwJgWrhcsFMMfFFhFp" first and second half are
+	 * compartments
+	 * @return sumOfThePriorities
+	 */
+	
+	static String title = "RucksacksContents - ";
+	
+	public int sumOfThePriorities(List<String> rucksacksContents) {
+		
+		//
+		
+		LOG.info(title + "lines: " + rucksacksContents.size());
+		
+		List<Rucksack> rucksackList = new ArrayList<>();
+		Rucksack currentRucksack = new Rucksack();
+		String itemType = "";
+		
+		int sumOfThePriorities = 0;
+		
+		// a.length => int[] a = new int[5] => capacity
+		// length() is a method used by Strings
+		// size() is a method implemented by all members of Collection
+		//
+		// for-each loop all lines to find common item(s)
+		for (String rucksack : rucksacksContents) {
 
-    @AllArgsConstructor
-    @Data
-    class RockPaperScissorsRound {
-        String opponentHand;
-        String yourHand;
-        int yourScore;
-        RoundResult yourRoundResult;
-    };
-    enum RoundResult {draw, lose, win}
-
-    /** Day 3 - 1
-     * Each ruckðsack has two large compartments. All items of a given type are meant to go into
-     * exactly one of the two compartments.
-     * ð=
-     * BTW you have X = rock, Y = paper, Z = scissors
-     * @param encryptedStrategyGuide the lines eg "A X"
-     * @return calculated score
-     */
-    public int scoreRockPaperScissors(List<String> encryptedStrategyGuide) {
-
-        LOG.info("RockPaperScissorsRound - total lines: " + encryptedStrategyGuide.size());
-
-        List<RockPaperScissorsRound> rockPaperScissorRounds = new ArrayList<>();
-        RockPaperScissorsRound currentRockPaperScissorsRound;
-
-        String opponentHand  = "";
-        String yourHand = "";
-
-        int yourTotalScore = 0;
-
-        // for-each loop the file lines
-        for (String round : encryptedStrategyGuide) {
-            //LOG.info("RockPaperScissorsRound - " + round + " gives : " + score);
-
-            List<String> split = Pattern
-                    .compile(" ")
-                    .splitAsStream(round)
-                    .collect(Collectors.toList());
-
-            opponentHand = split.get(0);
-            yourHand = split.get(1); //Integer.parseInt(split.get(1));
-
-            // populate the
-            currentRockPaperScissorsRound = switch(yourHand) {
-                case "X" -> new RockPaperScissorsRound(opponentHand,"A",0,null);
-                case "Y" -> new RockPaperScissorsRound(opponentHand,"B",0,null);
-                case "Z" -> new RockPaperScissorsRound(opponentHand,"C",0,null);
-                default -> throw new IllegalStateException("Invalid X,Y,Z status: " + yourHand);
-            };
-            currentRockPaperScissorsRound.yourScore = rockPaperScissorsScoreOfARound(currentRockPaperScissorsRound);
-            yourTotalScore = yourTotalScore + currentRockPaperScissorsRound.yourScore;
-            LOG.info("Rock Paper Scissors - round: " + round + " score: " + currentRockPaperScissorsRound.yourScore);
-            LOG.info("A/X = rock, B/Y = paper, C/Z = scissors " + lineSeparator);
-            rockPaperScissorRounds.add(currentRockPaperScissorsRound);
-        }
-
-        LOG.info("Rock Paper Scissors - score: " + yourTotalScore);
-        return yourTotalScore;
-    }
-
-    // A = rock, B = paper, C = scissors
-    static int rockPaperScissorsScoreOfARound(RockPaperScissorsRound rockPaperScissorsRound) {
-        if (rockPaperScissorsRound.opponentHand.equals(rockPaperScissorsRound.yourHand)) {
-            return rockPaperScissorsScoreCalculateRound(rockPaperScissorsRound.yourHand,RoundResult.draw);
-        } else if (rockPaperScissorsRound.opponentHand.equals("A")) {
-            if (rockPaperScissorsRound.yourHand.equals("B")) {
-                return rockPaperScissorsScoreCalculateRound(rockPaperScissorsRound.yourHand, RoundResult.win);
-            } else {
-                return rockPaperScissorsScoreCalculateRound(rockPaperScissorsRound.yourHand,
-                        RoundResult.lose);
-            }
-        } else if (rockPaperScissorsRound.opponentHand.equals("B")) {
-            if (rockPaperScissorsRound.yourHand.equals("C")) {
-                return rockPaperScissorsScoreCalculateRound(rockPaperScissorsRound.yourHand, RoundResult.win);
-            } else {
-                return rockPaperScissorsScoreCalculateRound(rockPaperScissorsRound.yourHand,
-                        RoundResult.lose);
-            }
-        } else {
-            // always opponent has C
-            if (rockPaperScissorsRound.yourHand.equals("A")) {
-                return rockPaperScissorsScoreCalculateRound(rockPaperScissorsRound.yourHand, RoundResult.win);
-            } else {
-                return rockPaperScissorsScoreCalculateRound(rockPaperScissorsRound.yourHand,
-                        RoundResult.lose);
-            }
-        }
-    }
-    static int rockPaperScissorsScoreCalculateRound(String shape, RoundResult result) {
-        int outcome = 0;
-        switch (shape) {
-            // Rock is 1
-            case "A" -> outcome = 1 + outcomeOfRoundResultValue(result);
-            // Paper is 2
-            case "B" -> outcome = 2 + outcomeOfRoundResultValue(result);
-            // Scissors is 3
-            case "C" -> outcome = 3 + outcomeOfRoundResultValue(result);
-        }
-        LOG.info("Rock Paper Scissors - total outcome with shape 1,2 or 3 added: " + result);
-
-        return outcome;
-    }
-    static int outcomeOfRoundResultValue(RoundResult roundResult) {
-        int result = 0;
-        switch (roundResult) {
-            case lose -> result = 0;
-            case draw -> result = 3;
-            case win -> result = 6;
-            default -> result = -999999;
-        }
-        LOG.info("Rock Paper Scissors - result of round value 0,3,6: " + result);
-
-        return result;
-    }
-
-    /** Day 3 - 2
-     * opponent has A = rock, B = paper, C = scissors
-     * C beats B beats A beats C - win is
-     * - 1 for Rock, 2 for Paper, and 3 for Scissors PLUS
-     * - 0 if you lost, 3 if the round was a draw, and 6 if you won
-     *
-     * BTW you have X = you need to lose, Y = you need to draw, Z = you need to win
-     * @param encryptedStrategyGuide the lines eg "A X"
-     * @return calculated score
-     */
-    public int scoreRockPaperScissorsSecond(List<String> encryptedStrategyGuide) {
-
-        LOG.info("RockPaperScissorsRound - total lines: " + encryptedStrategyGuide.size());
-
-        List<RockPaperScissorsRound> rockPaperScissorRounds = new ArrayList<>();
-        RockPaperScissorsRound currentRockPaperScissorsRound;
-
-        String opponentHand  = "";
-        String yourResult = "";
-
-        int yourTotalScore = 0;
-
-        // for-each loop the file lines
-        for (String round : encryptedStrategyGuide) {
-            //LOG.info("RockPaperScissorsRound - " + round + " gives : " + score);
-
-            List<String> split = Pattern
-                    .compile(" ")
-                    .splitAsStream(round)
-                    .collect(Collectors.toList());
-
-            opponentHand = split.get(0);
-            yourResult = split.get(1); //Integer.parseInt(split.get(1));
-
-            // populate the class
-            currentRockPaperScissorsRound = switch(yourResult) {
-                case "X" -> new RockPaperScissorsRound(opponentHand,"",0,RoundResult.lose);
-                case "Y" -> new RockPaperScissorsRound(opponentHand,"",0,RoundResult.draw);
-                case "Z" -> new RockPaperScissorsRound(opponentHand,"",0,RoundResult.win);
-                default -> throw new IllegalStateException("Invalid X,Y,Z status: " + yourResult);
-            };
-
-            currentRockPaperScissorsRound.yourScore = rockPaperScissorsHandOfARound(currentRockPaperScissorsRound);
-
-            yourTotalScore = yourTotalScore + currentRockPaperScissorsRound.yourScore;
-            LOG.info("Rock Paper Scissors - round: " + round + " score: " + currentRockPaperScissorsRound.yourScore);
-            LOG.info("A/X = rock, B/Y = paper, C/Z = scissors " + lineSeparator);
-            rockPaperScissorRounds.add(currentRockPaperScissorsRound);
-        }
-        LOG.info("Rock Paper Scissors - score: " + yourTotalScore);
-        return yourTotalScore;
-    }
-
-    // X = you need to lose, Y = you need to draw, Z = you need to win
-    // opponent has A = rock, B = paper, C = scissors
-    static int rockPaperScissorsHandOfARound(RockPaperScissorsRound rockPaperScissorsRound) {
-        if (rockPaperScissorsRound.yourRoundResult.equals(RoundResult.draw)) {
-            // draw
-            rockPaperScissorsRound.yourHand = rockPaperScissorsRound.opponentHand;
-        } else if (rockPaperScissorsRound.opponentHand.equals("A")) {
-            // you win with opponent A
-            if (rockPaperScissorsRound.yourRoundResult.equals(RoundResult.win)) {
-                rockPaperScissorsRound.yourHand = "B";
-            } else {
-                // you lose with opponent A
-                rockPaperScissorsRound.yourHand = "C";
-            }
-        } else if (rockPaperScissorsRound.opponentHand.equals("B")) {
-            // you win with opponent B
-            if (rockPaperScissorsRound.yourRoundResult.equals(RoundResult.win)) {
-                rockPaperScissorsRound.yourHand = "C";
-            } else {
-                // you lose with opponent B
-                rockPaperScissorsRound.yourHand = "A";
-            }
-        } else {
-            // always opponent has C
-            if (rockPaperScissorsRound.yourRoundResult.equals(RoundResult.win)) {
-                // you win with opponent C
-                rockPaperScissorsRound.yourHand = "A";
-            } else {
-                // you lose with opponent C
-                rockPaperScissorsRound.yourHand = "B";
-            }
-        }
-        return rockPaperScissorsScoreCalculateRound(rockPaperScissorsRound.yourHand,
-                rockPaperScissorsRound.yourRoundResult);
-    }
+//            List<String> split = Pattern
+//                    .compile(" ")
+//                    .splitAsStream(rucksack)
+//                    .collect(Collectors.toList());
+			
+			
+			int rucksackLength = rucksack.length(); //11 or 12
+			int firstCompartmentLength = rucksackLength / 2; // 5 or 6
+			currentRucksack.firstCompartment = rucksack.substring(0, firstCompartmentLength - 1);
+			currentRucksack.secondCompartment = rucksack.substring(firstCompartmentLength,
+					rucksackLength);
+			
+			LOG.info(title + "rucksack: " + rucksack);
+			LOG.info(title + "first: " + currentRucksack.firstCompartment + "sec: "
+					         + currentRucksack.secondCompartment);
+			
+			// for loop to get the common from first in second
+			for (int item = 0; item < firstCompartmentLength; item++) {
+				itemType = currentRucksack.firstCompartment.substring(item, 1);
+				
+			}
+		}
+		LOG.info(title + "rucksack: " + " score: ");
+		LOG.info("A/X = rock, B/Y = paper, C/Z = scissors " + lineSeparator);
+		
+		LOG.info(title + "sumOfThA=ePriorities: " + sumOfThePriorities);
+		return sumOfThePriorities;
+		
+	}
+	
+	// A = rock, B = paper, C = scissors
+	static int isItemAlsoInSecondCompartment(Rucksack rucksack) {
+		return 0;
+	}
+	
+	static String allItemTypes = "abcdefghijklmnopqrstuvwqyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	
+	static int calculateItemPriority(String itemType) {
+		
+		for (int i = 1; i <= 26; i++) {
+			if (itemType.equals(allItemTypes.substring(i, 1))) {
+				LOG.info(title + "priority: " + i);
+				return i;
+			}
+		}
+		throw new ArithmeticException(itemType + " not found in " + allItemTypes);
+	}
+	
 }

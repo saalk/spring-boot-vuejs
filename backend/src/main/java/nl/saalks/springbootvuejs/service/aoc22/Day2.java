@@ -1,14 +1,16 @@
 package nl.saalks.springbootvuejs.service.aoc22;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import nl.saalks.springbootvuejs.service.AdventOfCode;
+
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 @Service
 public class Day2 implements AdventOfCode {
@@ -26,7 +28,7 @@ public class Day2 implements AdventOfCode {
      */
     public int scoreRockPaperScissors(List<String> encryptedStrategyGuide) {
 
-        LOG.info("RockPaperScissorsRound - total lines: " + encryptedStrategyGuide.size());
+        LOG.info("Rucksack - total lines: " + encryptedStrategyGuide.size());
 
         List<RockPaperScissorsRound> rockPaperScissorRounds = new ArrayList<>();
         RockPaperScissorsRound currentRockPaperScissorsRound;
@@ -38,7 +40,7 @@ public class Day2 implements AdventOfCode {
 
         // for-each loop the file lines
         for (String round : encryptedStrategyGuide) {
-            //LOG.info("RockPaperScissorsRound - " + round + " gives : " + score);
+            //LOG.info("Rucksack - " + round + " gives : " + score);
 
             List<String> split = Pattern
                     .compile(" ")
@@ -143,7 +145,7 @@ public class Day2 implements AdventOfCode {
      */
     public int scoreRockPaperScissorsSecond(List<String> encryptedStrategyGuide) {
 
-        LOG.info("RockPaperScissorsRound - total lines: " + encryptedStrategyGuide.size());
+        LOG.info("Rucksack - total lines: " + encryptedStrategyGuide.size());
 
         List<RockPaperScissorsRound> rockPaperScissorRounds = new ArrayList<>();
         RockPaperScissorsRound currentRockPaperScissorsRound;
@@ -155,7 +157,7 @@ public class Day2 implements AdventOfCode {
 
         // for-each loop the file lines
         for (String round : encryptedStrategyGuide) {
-            //LOG.info("RockPaperScissorsRound - " + round + " gives : " + score);
+            //LOG.info("Rucksack - " + round + " gives : " + score);
 
             List<String> split = Pattern
                     .compile(" ")

@@ -1,11 +1,11 @@
 package nl.saalks.springbootvuejs.service.aoc22;
 
 import nl.saalks.springbootvuejs.service.AdventOfCodeTest;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.test.util.AssertionErrors.assertTrue;
@@ -23,7 +23,7 @@ class Day3Test implements AdventOfCodeTest {
     @DisplayName("3.1 - score Rock Paper Scissors")
     void scoreRockPaperScissorsWithExampleFile() {
 
-        List<String> lines = readFile("aoc22/encrypted-strategy-guide-example.txt");
+        List<String> lines = readFile("aoc22/rucksack-reorganisation-example.txt");
         int score = fixture.scoreRockPaperScissors(lines);
         assertTrue("score Rock Paper Scissors should be: ", score == 15);
     }
@@ -32,7 +32,7 @@ class Day3Test implements AdventOfCodeTest {
     @DisplayName("3.1 - score Rock Paper Scissors")
     void scoreRockPaperScissorsWithRealFile() {
 
-        List<String> lines = readFile("aoc22/encrypted-strategy-guide.txt");
+        List<String> lines = readFile("aoc22/rucksack-reorganisation.txt");
         int score = fixture.scoreRockPaperScissors(lines);
         assertTrue("score Rock Paper Scissors should be: ", score == 14531);
     }
