@@ -569,9 +569,9 @@ Mind the addition to the backend's [pom.xml](backend/pom.xml) described here: ht
 Now you're able to use Spring Data's magic - all you need is an Interface like [UserRepository.java](backend/src/main/java/nl/saalks/springbootvuejs/repository/UserRepository.java):
 
 ```java
-package de.jonashackt.springbootvuejs.repository;
+package nl.saalks.springbootvuejs.repository;
 
-import de.jonashackt.springbootvuejs.domain.User;
+import nl.saalks.springbootvuejs.domain.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
@@ -590,11 +590,11 @@ public interface UserRepository extends CrudRepository<User, Long> {
 Now write your Testcases accordingly like [UserRepositoryTest.java](backend/src/test/java/nl/saalks/springbootvuejs/repository/UserRepositoryTest.java):
 
 ```java
-package de.jonashackt.springbootvuejs.repository;
+package nl.saalks.springbootvuejs.repository;
 
-import de.jonashackt.springbootvuejs.domain.User;
+import nl.saalks.springbootvuejs.domain.User;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -1659,7 +1659,7 @@ With Spring it is relatively easy to secure our API. Let's add `spring-boot-star
 Also create a new @Configuration annotated class called [WebSecurityConfiguration.class](backend/src/main/java/nl/saalks/springbootvuejs/configuration/WebSecurityConfiguration.java):
 
 ```java
-package de.jonashackt.springbootvuejs.configuration;
+package nl.saalks.springbootvuejs.configuration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;

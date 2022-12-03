@@ -18,6 +18,7 @@ public class Day3 implements AdventOfCode {
     ArrayList<CommonBit> mostCommonBits = new ArrayList<>();
     ArrayList<CommonBit> leastCommonBits = new ArrayList<>();
 
+
     public void calculateMostOrLeastCommonBitCriteriaForSpecificPosition(int position, MostOrLeast mostOrLeast) {
 
         LOG.info("calculateMostOrLeastCommon - begin - input: " + (position+1) + " - " + mostOrLeast );

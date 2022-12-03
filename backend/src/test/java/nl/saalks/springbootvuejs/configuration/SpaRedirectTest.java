@@ -1,9 +1,9 @@
-package de.jonashackt.springbootvuejs.configuration;
+package nl.saalks.springbootvuejs.configuration;
 
-import de.jonashackt.springbootvuejs.SpringBootVuejsApplication;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
+import nl.saalks.springbootvuejs.SpringBootVuejsApplication;
 import org.apache.http.HttpStatus;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;

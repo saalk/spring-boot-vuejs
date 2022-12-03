@@ -1,6 +1,6 @@
-package de.jonashackt.springbootvuejs.repository;
+package nl.saalks.springbootvuejs.repository;
 
-import de.jonashackt.springbootvuejs.domain.User;
+import nl.saalks.springbootvuejs.domain.User;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package de.jonashackt.springbootvuejs.domain;
+package nl.saalks.springbootvuejs.domain;
 
 import javax.persistence.*;
 
