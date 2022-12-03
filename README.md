@@ -483,7 +483,7 @@ But if the user enters the URL directly into the Browser, we get a `Whitelabel E
 
 ![html5-history-mode-whitelabel-error-page-404](screenshots/html5-history-mode-whitelabel-error-page-404.gif)
 
-The solution is to redirect or better forward the user to the frontend (router) again. The [Vue.js docs don't provide an example configuration for Spring Boot](https://router.vuejs.org/guide/essentials/history-mode.html#example-server-configurations), but luckily [there are other resources](https://www.baeldung.com/spring-redirect-and-forward). In essence we have to implement a forwarding controller in our [BackendController](backend/src/main/java/de/jonashackt/springbootvuejs/controller/BackendController.java):
+The solution is to redirect or better forward the user to the frontend (router) again. The [Vue.js docs don't provide an example configuration for Spring Boot](https://router.vuejs.org/guide/essentials/history-mode.html#example-server-configurations), but luckily [there are other resources](https://www.baeldung.com/spring-redirect-and-forward). In essence we have to implement a forwarding controller in our [BackendController](backend/src/main/java/nl/saalks/springbootvuejs/controller/BackendController.java):
 
 ```
     // Forwards all routes to FrontEnd except: '/', '/index.html', '/api', '/api/**'
@@ -566,7 +566,7 @@ Then follow these instructions on Stackoverflow to configure all needed Environm
 
 Mind the addition to the backend's [pom.xml](backend/pom.xml) described here: https://stackoverflow.com/a/49970142/4964553
 
-Now you're able to use Spring Data's magic - all you need is an Interface like [UserRepository.java](backend/src/main/java/de/jonashackt/springbootvuejs/repository/UserRepository.java):
+Now you're able to use Spring Data's magic - all you need is an Interface like [UserRepository.java](backend/src/main/java/nl/saalks/springbootvuejs/repository/UserRepository.java):
 
 ```java
 package de.jonashackt.springbootvuejs.repository;
@@ -587,7 +587,7 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
 ```
 
-Now write your Testcases accordingly like [UserRepositoryTest.java](backend/src/test/java/de/jonashackt/springbootvuejs/repository/UserRepositoryTest.java):
+Now write your Testcases accordingly like [UserRepositoryTest.java](backend/src/test/java/nl/saalks/springbootvuejs/repository/UserRepositoryTest.java):
 
 ```java
 package de.jonashackt.springbootvuejs.repository;
@@ -646,7 +646,7 @@ public class UserRepositoryTest {
 }
 ```
 
-Then include this functionality in your REST-API - see [BackendController.java](backend/src/main/java/de/jonashackt/springbootvuejs/controller/BackendController.java):
+Then include this functionality in your REST-API - see [BackendController.java](backend/src/main/java/nl/saalks/springbootvuejs/controller/BackendController.java):
 
 ```java
     @RequestMapping(path = "/user", method = RequestMethod.POST)
@@ -1656,7 +1656,7 @@ With Spring it is relatively easy to secure our API. Let's add `spring-boot-star
 		</dependency>
 ```
 
-Also create a new @Configuration annotated class called [WebSecurityConfiguration.class](backend/src/main/java/de/jonashackt/springbootvuejs/configuration/WebSecurityConfiguration.java):
+Also create a new @Configuration annotated class called [WebSecurityConfiguration.class](backend/src/main/java/nl/saalks/springbootvuejs/configuration/WebSecurityConfiguration.java):
 
 ```java
 package de.jonashackt.springbootvuejs.configuration;
@@ -1715,7 +1715,7 @@ For now we can disable the default behavior with `http.csrf().disable()`
 
 See https://www.baeldung.com/rest-assured-authentication
 
-Inside our [BackendControllerTest](backend/src/test/java/de/jonashackt/springbootvuejs/controller/BackendControllerTest.java) we should check, whether our API reacts with correct HTTP 401 UNAUTHORIZED, when called without our User credentials:
+Inside our [BackendControllerTest](backend/src/test/java/nl/saalks/springbootvuejs/controller/BackendControllerTest.java) we should check, whether our API reacts with correct HTTP 401 UNAUTHORIZED, when called without our User credentials:
 
 ```
 	@Test
@@ -1752,7 +1752,7 @@ The crucial point here is to use the `given().auth().basic("foo", "bar")` config
 
 #### Configure credentials inside application.properties and environment variables
 
-Defining the users (and passwords) inside code (like our [WebSecurityConfiguration.class](backend/src/main/java/de/jonashackt/springbootvuejs/configuration/WebSecurityConfiguration.java)) that should be given access to our application is a test-only practice!
+Defining the users (and passwords) inside code (like our [WebSecurityConfiguration.class](backend/src/main/java/nl/saalks/springbootvuejs/configuration/WebSecurityConfiguration.java)) that should be given access to our application is a test-only practice!
 
 For our super simple example application, we could have a solution quite similar - but much more safe: If we would be able to extract this code into configuration and later use Spring's powerful mechanism of overriding these configuration with environment variables, we could then store them safely inside our deployment pipelines settings, that are again secured by another login - e.g. as Heroku Config Vars.
 
