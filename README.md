@@ -44,7 +44,7 @@ Update vue-cli
 npm install -g @vue/cli
 ```
 
-Update Vue components/plugins (see https://cli.vuejs.org/migrating-from-v3/#upgrade-all-plugins-at-once)
+Update Vue components/plugins (see https://cli.vuejs.org/migrations/migrate-from-v3.html#upgrade-all-plugins-at-once)
 ```shell
 vue upgrade
 ```
