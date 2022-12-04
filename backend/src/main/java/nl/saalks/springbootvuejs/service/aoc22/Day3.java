@@ -23,56 +23,84 @@ public class Day3 implements AdventOfCode {
 	
 	static String title = "RucksackContents - ";
 	
-	public int solution(List<String> lines) {
+	public int solutionPartOne(List<String> lines) {
 		
 		LOG.info(title + "lines: " + lines.size());
 		
 		int sum = 0;
 		for (String line : lines) {
-			
 			String first = line.substring(0, line.length() / 2);
 			String second = line.substring(line.length() / 2);
-			sum += calculatePriority(first,second );
+			sum += calculatePriority(first, second, "" );
 			
 			LOG.info(title + "cumulative: " + sum);
 		}
 		
 		LOG.info("answer: " + sum);
-//
-//		sum = 0;
-//		for(int i = 0; i < input.size(); i += 3)
-//			sum += calculatePriority(input.get(i), input.get(i + 1), input.get(i + 2));
-//		LOG.info("answer: " + sum);
+		return sum;
+	}
+	public int solutionPartTwo(List<String> lines) {
+		LOG.info(title + "lines: " + lines.size());
+		
+		int sum = 0;
+		// iterate in steps of 3 - 0,1,2 then 3,4,5
+		// no split in first and secon
+		for(int i = 0; i < lines.size(); i += 3) {
+			sum += calculatePriority(lines.get(i), lines.get(i + 1), lines.get(i + 2));
+			
+			LOG.info(title + "cumulative: " + sum);
+			
+		}
+		LOG.info("answer: " + sum);
+		
 		return sum;
 	}
 	
-	public int calculatePriority(String first, String second) {
-		LOG.info(title + "first: " + first + " second: " + second);
+	public int calculatePriority(String first, String second, String third) {
+		LOG.info(title + "first : " + first);
+		LOG.info(title + "second: " + second);
+		LOG.info(title + "third : " + third);
 		
-		String matchingLetter = findTheMatchingChar(first, second);
+		// improvement - call this method twice or once depending on part 1 or 2
+		String matchingLetter = findTheMatchingChar(first, second, third);
 		char martchingChar = matchingLetter.charAt(0);
-		
 		// CHAR MAGIC
 		// char to int is  A=65, a=97 first capitals and then lower cases
 		// we want first lower cases and then upper cases order
 		int priority = (martchingChar - (martchingChar <= 'Z' ? 'A' : 'a')) + (martchingChar <= 'Z' ? 27 : 1);
 		// eg c (99) - a (97) + 1 = 3
 		// eg C (67) - A (65) + 27 = 29
-		
 		LOG.info(title + "martchingChar: " + martchingChar + " priority: " + priority);
 		return priority;
 
 	}
 	
-	public String findTheMatchingChar(String first, String second) {
+	public String findTheMatchingChar(String first, String second, String third) {
 		StringBuilder result = new StringBuilder();
+		char[] firstToChars = first.toCharArray();
 		char[] secondToChars = second.toCharArray();
+		char[] thirdToChars = third.toCharArray();
 		
-		for (char charOfFirst : first.toCharArray()) {
+		for (char charOfFirst : firstToChars) {
 			for (char charOfSecond : secondToChars) {
-				if (charOfFirst == charOfSecond) {
-					result.append(charOfFirst);
-					break;
+				
+				if (!third.isEmpty()) {
+					for (char charOfThird : thirdToChars) {
+						if ((charOfFirst == charOfSecond) &
+								    (charOfSecond == charOfThird)) {
+							result.append(charOfFirst);
+							LOG.info(title + " charOfFirst : " + charOfFirst +
+									         " charOfSecond: " + charOfSecond +
+									         " charOfThird : " + charOfThird );
+							break;
+							
+						}
+					}
+				} else {
+					if (charOfFirst == charOfSecond) {
+						result.append(charOfFirst);
+						break;
+					}
 				}
 			}
 		}

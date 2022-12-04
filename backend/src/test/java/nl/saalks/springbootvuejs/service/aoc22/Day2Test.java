@@ -5,7 +5,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.springframework.test.util.AssertionErrors.assertTrue;
@@ -23,7 +22,7 @@ class Day2Test implements AdventOfCodeTest {
     @DisplayName("2.1 - score Rock Paper Scissors")
     void scoreRockPaperScissorsWithExampleFile() {
 
-        List<String> lines = readFile("aoc22/encrypted-strategy-guide-example.txt");
+        List<String> lines = readFile("aoc22/day2example.txt");
         int score = fixture.scoreRockPaperScissors(lines);
         assertTrue("score Rock Paper Scissors should be: ", score == 15);
     }
@@ -32,7 +31,7 @@ class Day2Test implements AdventOfCodeTest {
     @DisplayName("2.1 - score Rock Paper Scissors")
     void scoreRockPaperScissorsWithRealFile() {
 
-        List<String> lines = readFile("aoc22/encrypted-strategy-guide.txt");
+        List<String> lines = readFile("aoc22/day2.txt");
         int score = fixture.scoreRockPaperScissors(lines);
         assertTrue("score Rock Paper Scissors should be: ", score == 14531);
     }
@@ -41,7 +40,7 @@ class Day2Test implements AdventOfCodeTest {
     @DisplayName("2.2 - score Rock Paper Scissors")
     void scoreRockPaperScissorsSecondWithExampleFile() {
 
-        List<String> lines = readFile("aoc22/encrypted-strategy-guide-example.txt");
+        List<String> lines = readFile("aoc22/day2example.txt");
         int score = fixture.scoreRockPaperScissorsSecond(lines);
         assertTrue("score Rock Paper Scissors should be: ", score == 12);
     }
@@ -49,7 +48,7 @@ class Day2Test implements AdventOfCodeTest {
     @DisplayName("2.2 - score Rock Paper Scissors")
     void scoreRockPaperScissorsSecondWithRealFile() {
 
-        List<String> lines = readFile("aoc22/encrypted-strategy-guide.txt");
+        List<String> lines = readFile("aoc22/day2.txt");
         int score = fixture.scoreRockPaperScissorsSecond(lines);
         assertTrue("score Rock Paper Scissors should be: ", score == 11258);
     }
