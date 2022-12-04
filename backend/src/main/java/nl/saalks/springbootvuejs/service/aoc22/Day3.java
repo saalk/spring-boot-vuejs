@@ -4,34 +4,13 @@ import nl.saalks.springbootvuejs.service.AdventOfCode;
 
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Service
 public class Day3 implements AdventOfCode {
 	
-	@AllArgsConstructor
-	@NoArgsConstructor
-	@Data
-	class Rucksack {
-		String firstCompartment;
-		String secondCompartment;
-		List<CommonItem> commonItems;
-	}
-	
-	;
-	
-	class CommonItem {
-		String commonItem;
-		int priority;
-	}
-	
 	/**
-	 * Day 3 - 1
+	 * Day 3
 	 * Each rucksack has two large compartments. All items of a given type are meant to go into
 	 * exactly one of the two compartments.
 	 * Find the item type that appears in both compartments of each rucksack.
@@ -42,73 +21,61 @@ public class Day3 implements AdventOfCode {
 	 * @return sumOfThePriorities
 	 */
 	
-	static String title = "RucksacksContents - ";
+	static String title = "RucksackContents - ";
 	
-	public int sumOfThePriorities(List<String> rucksacksContents) {
+	public int solution(List<String> lines) {
 		
-		//
+		LOG.info(title + "lines: " + lines.size());
 		
-		LOG.info(title + "lines: " + rucksacksContents.size());
+		int sum = 0;
+		for (String line : lines) {
+			
+			String first = line.substring(0, line.length() / 2);
+			String second = line.substring(line.length() / 2);
+			sum += calculatePriority(first,second );
+			
+			LOG.info(title + "cumulative: " + sum);
+		}
 		
-		List<Rucksack> rucksackList = new ArrayList<>();
-		Rucksack currentRucksack = new Rucksack();
-		String itemType = "";
+		LOG.info("answer: " + sum);
+//
+//		sum = 0;
+//		for(int i = 0; i < input.size(); i += 3)
+//			sum += calculatePriority(input.get(i), input.get(i + 1), input.get(i + 2));
+//		LOG.info("answer: " + sum);
+		return sum;
+	}
+	
+	public int calculatePriority(String first, String second) {
+		LOG.info(title + "first: " + first + " second: " + second);
 		
-		int sumOfThePriorities = 0;
+		String matchingLetter = findTheMatchingChar(first, second);
+		char martchingChar = matchingLetter.charAt(0);
 		
-		// a.length => int[] a = new int[5] => capacity
-		// length() is a method used by Strings
-		// size() is a method implemented by all members of Collection
-		//
-		// for-each loop all lines to find common item(s)
-		for (String rucksack : rucksacksContents) {
+		// CHAR MAGIC
+		// char to int is  A=65, a=97 first capitals and then lower cases
+		// we want first lower cases and then upper cases order
+		int priority = (martchingChar - (martchingChar <= 'Z' ? 'A' : 'a')) + (martchingChar <= 'Z' ? 27 : 1);
+		// eg c (99) - a (97) + 1 = 3
+		// eg C (67) - A (65) + 27 = 29
+		
+		LOG.info(title + "martchingChar: " + martchingChar + " priority: " + priority);
+		return priority;
 
-//            List<String> split = Pattern
-//                    .compile(" ")
-//                    .splitAsStream(rucksack)
-//                    .collect(Collectors.toList());
-			
-			
-			int rucksackLength = rucksack.length(); //11 or 12
-			int firstCompartmentLength = rucksackLength / 2; // 5 or 6
-			currentRucksack.firstCompartment = rucksack.substring(0, firstCompartmentLength - 1);
-			currentRucksack.secondCompartment = rucksack.substring(firstCompartmentLength,
-					rucksackLength);
-			
-			LOG.info(title + "rucksack: " + rucksack);
-			LOG.info(title + "first: " + currentRucksack.firstCompartment + "sec: "
-					         + currentRucksack.secondCompartment);
-			
-			// for loop to get the common from first in second
-			for (int item = 0; item < firstCompartmentLength; item++) {
-				itemType = currentRucksack.firstCompartment.substring(item, 1);
-				
+	}
+	
+	public String findTheMatchingChar(String first, String second) {
+		StringBuilder result = new StringBuilder();
+		char[] secondToChars = second.toCharArray();
+		
+		for (char charOfFirst : first.toCharArray()) {
+			for (char charOfSecond : secondToChars) {
+				if (charOfFirst == charOfSecond) {
+					result.append(charOfFirst);
+					break;
+				}
 			}
 		}
-		LOG.info(title + "rucksack: " + " score: ");
-		LOG.info("A/X = rock, B/Y = paper, C/Z = scissors " + lineSeparator);
-		
-		LOG.info(title + "sumOfThA=ePriorities: " + sumOfThePriorities);
-		return sumOfThePriorities;
-		
+		return result.toString();
 	}
-	
-	// A = rock, B = paper, C = scissors
-	static int isItemAlsoInSecondCompartment(Rucksack rucksack) {
-		return 0;
-	}
-	
-	static String allItemTypes = "abcdefghijklmnopqrstuvwqyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	
-	static int calculateItemPriority(String itemType) {
-		
-		for (int i = 1; i <= 26; i++) {
-			if (itemType.equals(allItemTypes.substring(i, 1))) {
-				LOG.info(title + "priority: " + i);
-				return i;
-			}
-		}
-		throw new ArithmeticException(itemType + " not found in " + allItemTypes);
-	}
-	
 }

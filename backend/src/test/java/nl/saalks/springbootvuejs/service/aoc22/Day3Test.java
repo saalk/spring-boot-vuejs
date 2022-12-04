@@ -20,38 +20,21 @@ class Day3Test implements AdventOfCodeTest {
         fixture = new Day3();
     }
     @Test
-    @DisplayName("3.1 - score Rock Paper Scissors")
-    void scoreRockPaperScissorsWithExampleFile() {
+    @DisplayName("3.1 - sumOfThePriorities example")
+    void sumOfThePrioritiesWithExampleFile() {
 
-        List<String> lines = readFile("aoc22/rucksack-reorganisation-example.txt");
-        int score = fixture.scoreRockPaperScissors(lines);
-        assertTrue("score Rock Paper Scissors should be: ", score == 15);
+        List<String> lines = readFile("aoc22/rucksack-reorganisation-example2.txt");
+        int score = fixture.solution(lines);
+        assertTrue("sumOfThePriorities: ", score == 157);
     }
 
     @Test
-    @DisplayName("3.1 - score Rock Paper Scissors")
-    void scoreRockPaperScissorsWithRealFile() {
+    @DisplayName("3.1 - sumOfThePriorities real")
+    void sumOfThePrioritiesWithRealFile() {
 
         List<String> lines = readFile("aoc22/rucksack-reorganisation.txt");
-        int score = fixture.scoreRockPaperScissors(lines);
-        assertTrue("score Rock Paper Scissors should be: ", score == 14531);
-    }
-
-    @Test
-    @DisplayName("3.2 - score Rock Paper Scissors")
-    void scoreRockPaperScissorsSecondWithExampleFile() {
-
-        List<String> lines = readFile("aoc22/encrypted-strategy-guide-example.txt");
-        int score = fixture.scoreRockPaperScissorsSecond(lines);
-        assertTrue("score Rock Paper Scissors should be: ", score == 12);
-    }
-    @Test
-    @DisplayName("3.2 - score Rock Paper Scissors")
-    void scoreRockPaperScissorsSecondWithRealFile() {
-
-        List<String> lines = readFile("aoc22/encrypted-strategy-guide.txt");
-        int score = fixture.scoreRockPaperScissorsSecond(lines);
-        assertTrue("score Rock Paper Scissors should be: ", score == 11258);
+        int score = fixture.solution(lines);
+        assertTrue("sumOfThePriorities: ", score == 7746);
     }
 
 }
