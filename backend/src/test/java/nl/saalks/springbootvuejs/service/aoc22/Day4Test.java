@@ -39,21 +39,21 @@ class Day4Test implements AdventOfCodeTest {
 	}
 	
 	@Test
-	@DisplayName("4.2 - sumOfThePriorities example")
+	@DisplayName("4.2 - CampCleanup example")
 	void part2WithExampleFile() {
 		
-		List<String> lines = readFile("aoc22/rucksack-reorganisation-example2.txt");
-		int score = fixture.solutionPartOne(lines);
-		assertTrue("sumOfThePriorities: ", score == 70);
+		List<String> lines = readFile("aoc22/day4example.txt");
+		int score = fixture.solutionPartTwo(lines);
+		assertTrue("sumOfThePriorities: ", score == 4);
 	}
 	
 	@Test
-	@DisplayName("4.2 - sumOfThePriorities real")
+	@DisplayName("4.2 - CampCleanup real")
 	void part2WithRealFile() {
 		
-		List<String> lines = readFile("aoc22/day3.txt");
-		int score = fixture.solutionPartOne(lines);
-		assertTrue("sumOfThePriorities: ", score == 2604);
+		List<String> lines = readFile("aoc22/day4.txt");
+		int score = fixture.solutionPartTwo(lines);
+		assertTrue("sumOfThePriorities: ", score == 792);
 	}
 	
 }

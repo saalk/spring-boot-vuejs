@@ -101,45 +101,33 @@ public class Day4 implements AdventOfCode {
 					                     .compile(",")
 					                     .splitAsStream(line)
 					                     .collect(Collectors.toList());
-			sum += partlyContainsOther(split);
+			sum += partlyoverlaps(split);
 			LOG.info(title + "cumulative: " + sum + lineSeparator);
 		}
 		LOG.info("answer: " + sum);
 		return sum;
 	}
 	
-	public int partlyContainsOther(List<String> sectionRanges) {
+	public int partlyoverlaps(List<String> sectionRanges) {
 		String first = sectionRanges.get(0);
 		String second = sectionRanges.get(1);
 		LOG.info(title + "first : [" + first + "] second: [" + second +
 				         "]");
 		
-		int result = partlyContains(convertSection(first), convertSection(second));
-		if (result == 0) {
-			result = partlyContains(convertSection(second), convertSection(first));
-			if (result == 0 ){
-				return 0;
-			} else {
-				LOG.info(title + "contains second in first!");
-				return result;
-			}
-		} else {
-			LOG.info(title + "contains first in second !");
-			return result;
-		}
+		int result = overlap(convertSection(first), convertSection(second));
+		return result;
 	}
 	
-	public int partlyContains(int[] first, int[] second) {
+	public int overlap(int[] first, int[] second) {
 		// first 234 - second 12345
 		first: for (int i = 0; i < first.length; i++) {
 			for (int j = 0; j < second.length; j++) {
 				if (first[i] == second[j]) {
-					continue first;
+					LOG.info(title + "overlap found !");
+					return 1;
 				}
 			}
-			// no continue so i is not in j
-			return 0;
 		}
-		return 1;
+		return 0;
 	}
 }
