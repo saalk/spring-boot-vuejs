@@ -9,11 +9,14 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @Service
-public class Day4 implements AdventOfCode {
+public class Day5 implements AdventOfCode {
 	
 	/**
-	 * Day 4
-	 * Each
+	 * Day 3
+	 * Each rucksack has two large compartments. All items of a given type are meant to go into
+	 * exactly one of the two compartments.
+	 * Find the item type that appears in both compartments of each rucksack.
+	 * What is the sum of the priorities of those item types?
 	 *
 	 * @param rucksacksContents the lines eg "vJrwpWtwJgWrhcsFMMfFFhFp" first and second half are
 	 * compartments

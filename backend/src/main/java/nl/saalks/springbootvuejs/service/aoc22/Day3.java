@@ -44,7 +44,7 @@ public class Day3 implements AdventOfCode {
 		
 		int sum = 0;
 		// iterate in steps of 3 - 0,1,2 then 3,4,5
-		// no split in first and secon
+		// no split in first and second
 		for(int i = 0; i < lines.size(); i += 3) {
 			sum += calculatePriority(lines.get(i), lines.get(i + 1), lines.get(i + 2));
 			
@@ -63,14 +63,14 @@ public class Day3 implements AdventOfCode {
 		
 		// improvement - call this method twice or once depending on part 1 or 2
 		String matchingLetter = findTheMatchingChar(first, second, third);
-		char martchingChar = matchingLetter.charAt(0);
+		char matchingChar = matchingLetter.charAt(0);
 		// CHAR MAGIC
 		// char to int is  A=65, a=97 first capitals and then lower cases
 		// we want first lower cases and then upper cases order
-		int priority = (martchingChar - (martchingChar <= 'Z' ? 'A' : 'a')) + (martchingChar <= 'Z' ? 27 : 1);
+		int priority = (matchingChar - (matchingChar <= 'Z' ? 'A' : 'a')) + (matchingChar <= 'Z' ? 27 : 1);
 		// eg c (99) - a (97) + 1 = 3
 		// eg C (67) - A (65) + 27 = 29
-		LOG.info(title + "martchingChar: " + martchingChar + " priority: " + priority);
+		LOG.info(title + "matchingChar: " + matchingChar + " priority: " + priority);
 		return priority;
 
 	}
