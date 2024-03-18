@@ -10,7 +10,6 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import static nl.saalks.springbootvuejs.service.AdventOfCode.*;
-import static nl.saalks.springbootvuejs.service.AdventOfCode.convertStringListToIntList;
 
 @Service
 public class Day1 implements AdventOfCode {

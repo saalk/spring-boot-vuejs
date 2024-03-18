@@ -2,7 +2,6 @@ package nl.saalks.springbootvuejs.service.aoc23;
 
 import com.sun.istack.NotNull;
 import nl.saalks.springbootvuejs.service.AdventOfCodeTest;
-import nl.saalks.springbootvuejs.service.aoc23.Day1;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
